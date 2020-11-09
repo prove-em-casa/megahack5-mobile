@@ -1,12 +1,11 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 
 import { Container } from "./styles";
 
-const Home = () => {
+const ShopList = () => {
   return (
     <Container />
   )
 }
 
-export default Home;
+export default ShopList;
