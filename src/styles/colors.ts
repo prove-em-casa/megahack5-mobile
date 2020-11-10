@@ -4,4 +4,6 @@ export default {
   text_gray: '#6A6A70',
   secundary_gray: '#8A8A91',
   main_green: '#1ACA41',
+  stars_yellow: '#EDCB51',
+  background_white: '#fff',
 };
