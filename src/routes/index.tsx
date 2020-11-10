@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import StackNavigator from './StackNavigator';
 import TabNavigator from './TabNavigator';
