@@ -8,7 +8,6 @@ import * as Font from 'expo-font';
 import Navigator from './src/routes';
 import api from './src/services/api';
 import colors from './src/styles/colors';
-import { isLoaded } from 'expo-font';
 
 const App = () => {
   const [loaded] = Font.useFonts({
@@ -17,7 +16,7 @@ const App = () => {
     NunitoExtraBold: require('./assets/fonts/NunitoSans-ExtraBold.ttf'),
   });
 
-  if (!isLoaded('NunitoRegular')) {
+  if (!loaded) {
     return null;
   }
 
