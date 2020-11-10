@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Modal } from 'react-native';
+import { View, Modal, FlatList } from 'react-native';
 import ProductContainer from './components/ProductContainer';
 
 import {
@@ -37,12 +37,21 @@ interface CreditCard {
   lastDigits: number;
 }
 
+interface Product {
+  id: number;
+  title: string;
+  image: string;
+  price: number;
+  size: string;
+  stars: number;
+}
+
 const ShopList = () => {
   const [addressedModalOpen, setAddressesModalOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
   const [cardModalOpen, setCardModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CreditCard | null>(null);
-  const [products, setProducts] = useState([
+  const [products, setProducts] = useState<Product[]>([
     {
       id: 1,
       title: 'Calça flare em viscose lisa com cinto preto',
@@ -104,17 +113,21 @@ const ShopList = () => {
         <SessionTitle>Produtos</SessionTitle>
 
         <SessionContainer>
-          {products.map((product) => (
-            <ProductContainer
-              key={product.id}
-              onRemove={() => handleRemoveProduct(product.id)}
-              title={product.title}
-              image={product.image}
-              price={product.price}
-              size={product.size}
-              stars={product.stars}
-            />
-          ))}
+          <FlatList
+            data={products}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item: product }: { item: Product }) => (
+              <ProductContainer
+                key={product.id}
+                onRemove={() => handleRemoveProduct(product.id)}
+                title={product.title}
+                image={product.image}
+                price={product.price}
+                size={product.size}
+                stars={product.stars}
+              />
+            )}
+          />
         </SessionContainer>
 
         <SessionContainer>

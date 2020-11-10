@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import colors from '../../styles/colors';
 
-export const ShopBagContainer = styled.ScrollView`
+export const ShopBagContainer = styled.View`
   margin-top: 64px;
   width: 100%;
 `;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FlatList } from 'react-native';
 
 import { ListContainer, AddIcon } from '../styles';
 import { DefaultButton, DefaultButtonText } from '../../../styles/global';
@@ -40,14 +41,18 @@ const AddressesList = ({ handleSelectAddress }: AddressesListProps) => {
 
   return (
     <ListContainer>
-      {addresses.map((address) => (
-        <AddressContainer
-          key={address.id}
-          address={address.address}
-          complement={address.complement}
-          handleSelectAddress={() => onSelectAddress(address.id)}
-        />
-      ))}
+      <FlatList
+        data={addresses}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item: address }: { item: Address }) => (
+          <AddressContainer
+            key={address.id}
+            address={address.address}
+            complement={address.complement}
+            handleSelectAddress={() => onSelectAddress(address.id)}
+          />
+        )}
+      />
 
       <DefaultButton>
         <AddIcon name="plus" size={25} />

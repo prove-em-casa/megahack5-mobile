@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FlatList } from 'react-native';
 
 import { ListContainer, AddIcon } from '../styles';
 import { DefaultButton, DefaultButtonText } from '../../../styles/global';
@@ -35,13 +36,17 @@ const CardsList = ({ handleSelectCard }: CardListProps) => {
 
   return (
     <ListContainer>
-      {cards.map((card) => (
-        <CardContainer
-          key={card.id}
-          lastDigits={card.lastDigits}
-          handleSelectCard={() => onSelectCard(card.id)}
-        />
-      ))}
+      <FlatList
+        data={cards}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item: card }: { item: CreditCard }) => (
+          <CardContainer
+            key={card.id}
+            lastDigits={card.lastDigits}
+            handleSelectCard={() => onSelectCard(card.id)}
+          />
+        )}
+      />
 
       <DefaultButton>
         <AddIcon name="plus" size={25} />
