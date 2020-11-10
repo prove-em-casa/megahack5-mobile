@@ -5,5 +5,5 @@ export default {
   secundary_gray: '#8A8A91',
   main_green: '#1ACA41',
   stars_yellow: '#EDCB51',
-  background_white: '#E5E5E5',
+  background_white: '#fff',
 };

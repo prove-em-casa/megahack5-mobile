@@ -6,7 +6,7 @@ export const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background: ${colors.background_white};
+  background-color: ${colors.background_white};
 `;
 
 export const Header = styled.View`
