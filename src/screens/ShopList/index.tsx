@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { Container } from "./styles";
+import {Container} from './styles';
 
 const ShopList = () => {
-  return (
-    <Container />
-  )
-}
+  return <Container />;
+};
 
 export default ShopList;
