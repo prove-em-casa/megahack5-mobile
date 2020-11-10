@@ -6,7 +6,7 @@
 ## Projeto :computer: 
 <p>Prove em casa é um aplicativo .</p>
 
- * Equipe envolvida: [Thaian](https://github.com/thcarvalho), [Mello](), [Itamar](https://github.com/ItamarJoire), [Matt]() e [Vítor](https://github.com/vitorbertolucci);
+ * Equipe envolvida: [Thaian](https://github.com/thcarvalho), [Mello](https://github.com/MelloTonio), [Itamar](https://github.com/ItamarJoire), [Matt]() e [Vítor](https://github.com/vitorbertolucci);
  
 
 
