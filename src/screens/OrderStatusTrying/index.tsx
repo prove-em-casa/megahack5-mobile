@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import BottomSheet from 'reanimated-bottom-sheet';
 
 import {
   OrderStatusContainer,
-  OrderStatusCanceledTextContainer,
+  OrderStatusTryingTextContainer,
   OrderStatusText,
   SessionContainer,
   InformationLine,
   InformationLabel,
   Price,
+  GreenPrice,
   DisclaimerText,
   OrderStatusBottomSheet,
   OrderStatusBottomSheetIndicator,
@@ -20,11 +22,13 @@ import {
   DriverInformationContainer,
   DriverName,
   VehicleContainer,
+  ConcludeButton,
   OrderStatusBottomSheetContent,
+  SelectLabel,
 } from './styles';
-import ProductContainer from '../../components/ProductContainer';
-
-const avatarImage = require('../../../assets/img/driver_avatar.png');
+import SelectableProductContainer from '../../components/SelectableProductContainer';
+import { DefaultButtonText } from '../../styles/global';
+const avatarImage = require('../../../assets/img/driver_avatar_2.png');
 
 interface Product {
   id: number;
@@ -35,8 +39,10 @@ interface Product {
   stars: number;
 }
 
-const OrderStatusCanceled = () => {
+const OrderStatusTrying = () => {
   const [showBackdrop, setShowBackdrop] = useState(false);
+  const [selectedProductIds, setSelectedProductIds] = useState<number[]>([]);
+  const [productsPrice, setProductsPrice] = useState('0,00');
   const [products] = useState<Product[]>([
     {
       id: 1,
@@ -55,6 +61,46 @@ const OrderStatusCanceled = () => {
       stars: 4,
     },
   ]);
+  const navigator = useNavigation();
+
+  useEffect(() => {
+    if (!selectedProductIds || !selectedProductIds.length) {
+      setProductsPrice('0,00');
+      return;
+    }
+
+    const selectedProducts = products.filter((product) =>
+      selectedProductIds.includes(product.id),
+    );
+
+    const price = selectedProducts.reduce(
+      (accumulator, product) => accumulator + product.price,
+      0,
+    );
+
+    setProductsPrice(price.toFixed(2).replace(/\./, ','));
+  }, [selectedProductIds, products]);
+
+  const handleSelectProduct = (id: number, selected: boolean) => {
+    let newSelectedProducts = [...selectedProductIds];
+    const selectedProduct = newSelectedProducts.find(
+      (selectedProductId) => selectedProductId === id,
+    );
+
+    if (selected) {
+      if (!selectedProduct) {
+        newSelectedProducts.push(id);
+      }
+    } else {
+      if (selectedProduct) {
+        newSelectedProducts = newSelectedProducts.filter(
+          (selectedProductId) => selectedProductId !== id,
+        );
+      }
+    }
+
+    setSelectedProductIds(newSelectedProducts);
+  };
 
   const renderContent = () => (
     <OrderStatusBottomSheet>
@@ -82,7 +128,7 @@ const OrderStatusCanceled = () => {
 
         <DriverInformationContainer>
           <DriverAvatar source={avatarImage} />
-          <DriverName>Mario Segali</DriverName>
+          <DriverName>Luigi Mario</DriverName>
 
           <VehicleContainer>
             <InformationValue>ABC1234</InformationValue>
@@ -90,7 +136,7 @@ const OrderStatusCanceled = () => {
           </VehicleContainer>
         </DriverInformationContainer>
 
-        <DisclaimerText>* driver indo buscar as peças</DisclaimerText>
+        <DisclaimerText>* driver indo buscas as peças</DisclaimerText>
       </OrderStatusBottomSheetContent>
     </OrderStatusBottomSheet>
   );
@@ -98,22 +144,27 @@ const OrderStatusCanceled = () => {
   return (
     <OrderStatusContainer>
       {showBackdrop && <OrderStatusBackdrop />}
-      <OrderStatusCanceledTextContainer>
-        <OrderStatusText>cancelado</OrderStatusText>
-      </OrderStatusCanceledTextContainer>
+      <OrderStatusTryingTextContainer>
+        <OrderStatusText>chegou para provar</OrderStatusText>
+      </OrderStatusTryingTextContainer>
+
+      <SelectLabel>Selecione as peças que deseja ficar</SelectLabel>
 
       <SessionContainer>
         <FlatList
           data={products}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item: product }: { item: Product }) => (
-            <ProductContainer
+            <SelectableProductContainer
               key={product.id}
               title={product.title}
               image={product.image}
               price={product.price}
               size={product.size}
               stars={product.stars}
+              onSelect={(selected: boolean) =>
+                handleSelectProduct(product.id, selected)
+              }
             />
           )}
         />
@@ -121,15 +172,32 @@ const OrderStatusCanceled = () => {
 
       <SessionContainer>
         <InformationLine>
+          <InformationLabel>Roupas</InformationLabel>
+          {selectedProductIds.length !== 0 ? (
+            <GreenPrice>R${productsPrice}</GreenPrice>
+          ) : (
+              <Price>R${productsPrice}</Price>
+            )}
+        </InformationLine>
+
+        <InformationLine>
           <InformationLabel>Taxa de entrega</InformationLabel>
           <Price>R$15,00</Price>
         </InformationLine>
 
         <InformationLine>
           <TotalPriceLabel>Total</TotalPriceLabel>
-          <Price>R$15,00</Price>
+          <Price>R$95,00</Price>
         </InformationLine>
       </SessionContainer>
+
+      <DisclaimerText>
+        * só o valor do frete caso não escolha nenhuma peça
+      </DisclaimerText>
+
+      <ConcludeButton>
+        <DefaultButtonText>Concluir</DefaultButtonText>
+      </ConcludeButton>
 
       <BottomSheet
         snapPoints={[306, 305, 50]}
@@ -143,4 +211,4 @@ const OrderStatusCanceled = () => {
   );
 };
 
-export default OrderStatusCanceled;
+export default OrderStatusTrying;
