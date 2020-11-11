@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ShopList from '../screens/ShopList';
 import MyAccount from '../screens/MyAccount';
 import ShopBag from '../screens/ShopBag';
-import OrderStatusTrying from '../screens/OrderStatusTrying';
+import OrderList from '../screens/OrderList';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +20,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="OrderList"
-        component={OrderStatusTrying}
+        component={OrderList}
         options={{
           title: 'PEDIDOS',
         }}

@@ -9,6 +9,8 @@ import colors from '../styles/colors';
 import TabNavigator from './TabNavigator';
 import OrderStatusWaiting from '../screens/OrderStatusWaiting';
 import OrderStatusCanceled from '../screens/OrderStatusCanceled';
+import OrderStatusTrying from '../screens/OrderStatusTrying';
+import AddressMap from '../screens/AddressMap';
 
 const Stack = createStackNavigator();
 
@@ -51,7 +53,17 @@ const StackNavigator = () => {
       <Stack.Screen
         name="OrderStatusCanceled"
         component={OrderStatusCanceled}
+        options={{ headerTitle: 'PEDIDO N° 940157' }}
+      />
+      <Stack.Screen
+        name="OrderStatusTrying"
+        component={OrderStatusTrying}
         options={{ headerTitle: 'ACOMPANHE SEU PEDIDO' }}
+      />
+      <Stack.Screen
+        name="AddressMap"
+        component={AddressMap}
+        options={{ headerTitle: 'CADASTRAR ENDEREÇO' }}
       />
     </Stack.Navigator>
   );
