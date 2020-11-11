@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
+import UnauthenticatedNavigator from './UnauthenticatedNavigator';
 import StackNavigator from './StackNavigator';
-import TabNavigator from './TabNavigator';
 
 const Navigator = () => {
-  const [isSignedIn] = useState(false);
+  const [isSignedIn] = useState(true);
 
   if (isSignedIn) {
-    return <TabNavigator />;
+    return <StackNavigator />;
   }
 
-  return <StackNavigator />;
+  return <UnauthenticatedNavigator />;
 };
 
 export default Navigator;
