@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import BottomSheet from 'reanimated-bottom-sheet';
 
 import {
   OrderStatusContainer,
-  OrderStatusOnTheWay,
+  OrderStatusCanceledTextContainer,
   OrderStatusText,
   SessionContainer,
   InformationLine,
@@ -37,7 +36,7 @@ interface Product {
   stars: number;
 }
 
-const OrderStatusWaiting = () => {
+const OrderStatusCanceled = () => {
   const [showBackdrop, setShowBackdrop] = useState(false);
   const [products] = useState<Product[]>([
     {
@@ -57,7 +56,6 @@ const OrderStatusWaiting = () => {
       stars: 4,
     },
   ]);
-  const navigator = useNavigation();
 
   const renderContent = () => (
     <OrderStatusBottomSheet>
@@ -69,7 +67,7 @@ const OrderStatusWaiting = () => {
         </InformationLine>
 
         <InformationLine>
-          <InformationLabel>Dia do pedido</InformationLabel>
+          <InformationLabel>Dia da devolução</InformationLabel>
           <InformationValue>11-11-20</InformationValue>
         </InformationLine>
 
@@ -79,8 +77,8 @@ const OrderStatusWaiting = () => {
         </InformationLine>
 
         <InformationLine>
-          <InformationLabel>Realizado</InformationLabel>
-          <InformationValue>13:00</InformationValue>
+          <InformationLabel>Devolução</InformationLabel>
+          <InformationValue>15:00</InformationValue>
         </InformationLine>
 
         <DriverInformationContainer>
@@ -93,9 +91,7 @@ const OrderStatusWaiting = () => {
           </VehicleContainer>
         </DriverInformationContainer>
 
-        <CancelButton onPress={() => navigator.navigate('OrderStatusCanceled')}>
-          <DefaultButtonText>Cancelar</DefaultButtonText>
-        </CancelButton>
+        <DisclaimerText>* driver indo buscar as peças</DisclaimerText>
       </OrderStatusBottomSheetContent>
     </OrderStatusBottomSheet>
   );
@@ -103,9 +99,9 @@ const OrderStatusWaiting = () => {
   return (
     <OrderStatusContainer>
       {showBackdrop && <OrderStatusBackdrop />}
-      <OrderStatusOnTheWay>
-        <OrderStatusText>a caminho</OrderStatusText>
-      </OrderStatusOnTheWay>
+      <OrderStatusCanceledTextContainer>
+        <OrderStatusText>cancelado</OrderStatusText>
+      </OrderStatusCanceledTextContainer>
 
       <SessionContainer>
         <FlatList
@@ -126,24 +122,15 @@ const OrderStatusWaiting = () => {
 
       <SessionContainer>
         <InformationLine>
-          <InformationLabel>Roupas</InformationLabel>
-          <Price>R$80,00</Price>
-        </InformationLine>
-
-        <InformationLine>
           <InformationLabel>Taxa de entrega</InformationLabel>
           <Price>R$15,00</Price>
         </InformationLine>
 
         <InformationLine>
           <TotalPriceLabel>Total</TotalPriceLabel>
-          <Price>R$95,00</Price>
+          <Price>R$15,00</Price>
         </InformationLine>
       </SessionContainer>
-
-      <DisclaimerText>
-        * só o valor do frete caso não escolha nenhuma peça
-      </DisclaimerText>
 
       <BottomSheet
         snapPoints={[306, 305, 50]}
@@ -157,4 +144,4 @@ const OrderStatusWaiting = () => {
   );
 };
 
-export default OrderStatusWaiting;
+export default OrderStatusCanceled;

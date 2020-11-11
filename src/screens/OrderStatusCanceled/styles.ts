@@ -20,12 +20,12 @@ export const OrderStatusBackdrop = styled.View`
   background-color: rgba(0, 0, 0, 0.47);
 `;
 
-export const OrderStatusOnTheWay = styled.View`
+export const OrderStatusCanceledTextContainer = styled.View`
   margin-top: 40px;
   align-self: flex-start;
   margin-left: 35px;
 
-  background-color: ${colors.status_yellow};
+  background-color: ${colors.main_red};
   width: 81px;
   height: 21px;
   border-radius: 4px;
