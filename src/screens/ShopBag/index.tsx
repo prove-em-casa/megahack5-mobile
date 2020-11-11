@@ -44,7 +44,7 @@ interface Product {
   stars: number;
 }
 
-const ShopList = () => {
+const ShopBag = () => {
   // TODO: Get from context
   const [selectedAddress] = useState<Address | null>(null);
 
@@ -94,10 +94,10 @@ const ShopList = () => {
               handleSelectAddress={() => navigator.navigate('AddressList')}
             />
           ) : (
-              <NavigationLink onPress={() => navigator.navigate('AddressList')}>
-                Escolher endereço
-              </NavigationLink>
-            )}
+            <NavigationLink onPress={() => navigator.navigate('AddressList')}>
+              Escolher endereço
+            </NavigationLink>
+          )}
         </SessionContainer>
 
         <SessionTitle>Produtos</SessionTitle>
@@ -148,11 +148,11 @@ const ShopList = () => {
               }
             />
           ) : (
-              <NavigationLink
-                onPress={() => navigator.navigate('CreditCardList')}>
-                Escolher cartão
-              </NavigationLink>
-            )}
+            <NavigationLink
+              onPress={() => navigator.navigate('CreditCardList')}>
+              Escolher cartão
+            </NavigationLink>
+          )}
         </SessionContainer>
 
         <ButtonContainer>
@@ -165,4 +165,4 @@ const ShopList = () => {
   );
 };
 
-export default ShopList;
+export default ShopBag;
