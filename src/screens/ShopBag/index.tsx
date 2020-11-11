@@ -44,7 +44,7 @@ interface Product {
   stars: number;
 }
 
-const ShopList = () => {
+const ShopBag = () => {
   // TODO: Get from context
   const [selectedAddress] = useState<Address | null>(null);
 
@@ -168,4 +168,4 @@ const ShopList = () => {
   );
 };
 
-export default ShopList;
+export default ShopBag;
