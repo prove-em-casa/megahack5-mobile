@@ -15,6 +15,7 @@ export const Product = styled.View`
   height: 90px;
   margin-bottom: 12px;
   padding: 8px;
+  align-self: center;
 
   border-radius: 4px;
   border-color: #bbbbc4;

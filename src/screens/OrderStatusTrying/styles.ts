@@ -44,6 +44,7 @@ export const OrderStatusText = styled.Text`
 export const SessionContainer = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${colors.divider_gray};
+
   width: 100%;
   padding-bottom: 20px;
   margin-top: 20px;

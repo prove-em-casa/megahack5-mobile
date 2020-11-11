@@ -44,17 +44,20 @@ const CreditCardList = () => {
             handleSelectCreditCard={() => onSelectCreditCard(card.id)}
           />
         )}
+        ListFooterComponent={
+          <>
+            <DefaultButton>
+              <AddCreditCardIcon name="plus" size={25} />
+              <DefaultButtonText
+                onPress={() => {
+                  navigator.navigate('AddCreditCard');
+                }}>
+                Cadastrar novo cartão
+              </DefaultButtonText>
+            </DefaultButton>
+          </>
+        }
       />
-
-      <DefaultButton>
-        <AddCreditCardIcon name="plus" size={25} />
-        <DefaultButtonText
-          onPress={() => {
-            navigator.navigate('AddCreditCard');
-          }}>
-          Cadastrar novo cartão
-        </DefaultButtonText>
-      </DefaultButton>
     </CreditCardsListContainer>
   );
 };

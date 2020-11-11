@@ -102,34 +102,35 @@ const OrderStatusCanceled = () => {
         <OrderStatusText>cancelado</OrderStatusText>
       </OrderStatusCanceledTextContainer>
 
-      <SessionContainer>
-        <FlatList
-          data={products}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item: product }: { item: Product }) => (
-            <ProductContainer
-              key={product.id}
-              title={product.title}
-              image={product.image}
-              price={product.price}
-              size={product.size}
-              stars={product.stars}
-            />
-          )}
-        />
-      </SessionContainer>
+      <FlatList
+        data={products}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item: product }: { item: Product }) => (
+          <ProductContainer
+            key={product.id}
+            title={product.title}
+            image={product.image}
+            price={product.price}
+            size={product.size}
+            stars={product.stars}
+          />
+        )}
+        ListFooterComponent={
+          <>
+            <SessionContainer>
+              <InformationLine>
+                <InformationLabel>Taxa de entrega</InformationLabel>
+                <Price>R$15,00</Price>
+              </InformationLine>
 
-      <SessionContainer>
-        <InformationLine>
-          <InformationLabel>Taxa de entrega</InformationLabel>
-          <Price>R$15,00</Price>
-        </InformationLine>
-
-        <InformationLine>
-          <TotalPriceLabel>Total</TotalPriceLabel>
-          <Price>R$15,00</Price>
-        </InformationLine>
-      </SessionContainer>
+              <InformationLine>
+                <TotalPriceLabel>Total</TotalPriceLabel>
+                <Price>R$15,00</Price>
+              </InformationLine>
+            </SessionContainer>
+          </>
+        }
+      />
 
       <BottomSheet
         snapPoints={[306, 305, 50]}

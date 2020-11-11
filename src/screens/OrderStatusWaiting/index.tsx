@@ -107,43 +107,44 @@ const OrderStatusWaiting = () => {
         <OrderStatusText>a caminho</OrderStatusText>
       </OrderStatusOnTheWay>
 
-      <SessionContainer>
-        <FlatList
-          data={products}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item: product }: { item: Product }) => (
-            <ProductContainer
-              key={product.id}
-              title={product.title}
-              image={product.image}
-              price={product.price}
-              size={product.size}
-              stars={product.stars}
-            />
-          )}
-        />
-      </SessionContainer>
+      <FlatList
+        data={products}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item: product }: { item: Product }) => (
+          <ProductContainer
+            key={product.id}
+            title={product.title}
+            image={product.image}
+            price={product.price}
+            size={product.size}
+            stars={product.stars}
+          />
+        )}
+        ListFooterComponent={
+          <>
+            <SessionContainer>
+              <InformationLine>
+                <InformationLabel>Roupas</InformationLabel>
+                <Price>R$80,00</Price>
+              </InformationLine>
 
-      <SessionContainer>
-        <InformationLine>
-          <InformationLabel>Roupas</InformationLabel>
-          <Price>R$80,00</Price>
-        </InformationLine>
+              <InformationLine>
+                <InformationLabel>Taxa de entrega</InformationLabel>
+                <Price>R$15,00</Price>
+              </InformationLine>
 
-        <InformationLine>
-          <InformationLabel>Taxa de entrega</InformationLabel>
-          <Price>R$15,00</Price>
-        </InformationLine>
+              <InformationLine>
+                <TotalPriceLabel>Total</TotalPriceLabel>
+                <Price>R$95,00</Price>
+              </InformationLine>
+            </SessionContainer>
 
-        <InformationLine>
-          <TotalPriceLabel>Total</TotalPriceLabel>
-          <Price>R$95,00</Price>
-        </InformationLine>
-      </SessionContainer>
-
-      <DisclaimerText>
-        * só o valor do frete caso não escolha nenhuma peça
-      </DisclaimerText>
+            <DisclaimerText>
+              * só o valor do frete caso não escolha nenhuma peça
+            </DisclaimerText>
+          </>
+        }
+      />
 
       <BottomSheet
         snapPoints={[306, 305, 50]}

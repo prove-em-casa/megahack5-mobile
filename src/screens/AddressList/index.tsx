@@ -50,14 +50,18 @@ const AddressList = () => {
             handleSelectAddress={() => onSelectAddress(address.id)}
           />
         )}
+        ListFooterComponent={
+          <>
+            <DefaultButton>
+              <AddAddressIcon name="plus" size={25} />
+              <DefaultButtonText
+                onPress={() => navigation.navigate('AddressMap')}>
+                Cadastrar novo endereço
+              </DefaultButtonText>
+            </DefaultButton>
+          </>
+        }
       />
-
-      <DefaultButton>
-        <AddAddressIcon name="plus" size={25} />
-        <DefaultButtonText onPress={() => navigation.navigate('AddressMap')}>
-          Cadastrar novo endereço
-        </DefaultButtonText>
-      </DefaultButton>
     </AddressesListContainer>
   );
 };

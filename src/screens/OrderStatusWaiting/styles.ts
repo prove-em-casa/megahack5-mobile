@@ -5,7 +5,6 @@ import { DefaultButton } from '../../styles/global';
 
 export const OrderStatusContainer = styled.View`
   flex: 1;
-  align-items: center;
 `;
 
 export const OrderStatusBackdrop = styled.View`
@@ -24,6 +23,7 @@ export const OrderStatusOnTheWay = styled.View`
   margin-top: 40px;
   align-self: flex-start;
   margin-left: 35px;
+  margin-bottom: 20px;
 
   background-color: ${colors.status_yellow};
   width: 81px;
@@ -45,9 +45,12 @@ export const OrderStatusText = styled.Text`
 export const SessionContainer = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${colors.divider_gray};
+  border-top-width: 1px;
+  border-top-color: ${colors.divider_gray};
   width: 100%;
   padding-bottom: 20px;
   margin-top: 20px;
+  padding-top: 10px;
 
   align-items: center;
 `;
