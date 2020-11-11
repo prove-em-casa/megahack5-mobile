@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BottomSheet from 'reanimated-bottom-sheet';
 
@@ -25,9 +25,12 @@ import {
   ConcludeButton,
   OrderStatusBottomSheetContent,
   SelectLabel,
+  NavigationLink,
+  PaymentLabel,
 } from './styles';
 import SelectableProductContainer from '../../components/SelectableProductContainer';
 import { DefaultButtonText } from '../../styles/global';
+import CreditCardContainer from '../../components/CreditCardContainer';
 const avatarImage = require('../../../assets/img/driver_avatar_2.png');
 
 interface Product {
@@ -39,10 +42,16 @@ interface Product {
   stars: number;
 }
 
+interface CreditCard {
+  lastDigits: number;
+}
+
 const OrderStatusTrying = () => {
   const [showBackdrop, setShowBackdrop] = useState(false);
   const [selectedProductIds, setSelectedProductIds] = useState<number[]>([]);
   const [productsPrice, setProductsPrice] = useState('0,00');
+  // TODO: Get from context
+  const [selectedCard] = useState<CreditCard | null>(null);
   const [products] = useState<Product[]>([
     {
       id: 1,
@@ -150,54 +159,76 @@ const OrderStatusTrying = () => {
 
       <SelectLabel>Selecione as peças que deseja ficar</SelectLabel>
 
-      <SessionContainer>
-        <FlatList
-          data={products}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item: product }: { item: Product }) => (
-            <SelectableProductContainer
-              key={product.id}
-              title={product.title}
-              image={product.image}
-              price={product.price}
-              size={product.size}
-              stars={product.stars}
-              onSelect={(selected: boolean) =>
-                handleSelectProduct(product.id, selected)
-              }
-            />
-          )}
-        />
-      </SessionContainer>
+      <FlatList
+        data={products}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item: product }: { item: Product }) => (
+          <SelectableProductContainer
+            key={product.id}
+            title={product.title}
+            image={product.image}
+            price={product.price}
+            size={product.size}
+            stars={product.stars}
+            onSelect={(selected: boolean) =>
+              handleSelectProduct(product.id, selected)
+            }
+          />
+        )}
+        ListFooterComponentStyle={{
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        ListFooterComponent={
+          <>
+            <SessionContainer>
+              <InformationLine>
+                <InformationLabel>Roupas</InformationLabel>
+                {selectedProductIds.length !== 0 ? (
+                  <GreenPrice>R${productsPrice}</GreenPrice>
+                ) : (
+                    <Price>R${productsPrice}</Price>
+                  )}
+              </InformationLine>
 
-      <SessionContainer>
-        <InformationLine>
-          <InformationLabel>Roupas</InformationLabel>
-          {selectedProductIds.length !== 0 ? (
-            <GreenPrice>R${productsPrice}</GreenPrice>
-          ) : (
-              <Price>R${productsPrice}</Price>
-            )}
-        </InformationLine>
+              <InformationLine>
+                <InformationLabel>Taxa de entrega</InformationLabel>
+                <Price>R$15,00</Price>
+              </InformationLine>
 
-        <InformationLine>
-          <InformationLabel>Taxa de entrega</InformationLabel>
-          <Price>R$15,00</Price>
-        </InformationLine>
+              <InformationLine>
+                <TotalPriceLabel>Total</TotalPriceLabel>
+                <Price>R$95,00</Price>
+              </InformationLine>
 
-        <InformationLine>
-          <TotalPriceLabel>Total</TotalPriceLabel>
-          <Price>R$95,00</Price>
-        </InformationLine>
-      </SessionContainer>
+              <DisclaimerText>
+                * só o valor do frete caso não escolha nenhuma peça
+              </DisclaimerText>
+            </SessionContainer>
 
-      <DisclaimerText>
-        * só o valor do frete caso não escolha nenhuma peça
-      </DisclaimerText>
+            <SessionContainer>
+              <PaymentLabel>Pagamento</PaymentLabel>
+              {selectedCard ? (
+                <CreditCardContainer
+                  lastDigits={selectedCard.lastDigits}
+                  handleSelectCreditCard={() =>
+                    navigator.navigate('CreditCardList')
+                  }
+                />
+              ) : (
+                  <NavigationLink
+                    onPress={() => navigator.navigate('CreditCardList')}>
+                    Escolher cartão
+                  </NavigationLink>
+                )}
+            </SessionContainer>
 
-      <ConcludeButton>
-        <DefaultButtonText>Concluir</DefaultButtonText>
-      </ConcludeButton>
+            <ConcludeButton>
+              <DefaultButtonText>Concluir</DefaultButtonText>
+            </ConcludeButton>
+          </>
+        }
+      />
 
       <BottomSheet
         snapPoints={[306, 305, 50]}

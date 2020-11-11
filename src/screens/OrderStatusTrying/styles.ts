@@ -5,7 +5,6 @@ import { DefaultButton } from '../../styles/global';
 
 export const OrderStatusContainer = styled.View`
   flex: 1;
-  align-items: center;
 `;
 
 export const OrderStatusBackdrop = styled.View`
@@ -184,4 +183,17 @@ export const ConcludeButton = styled(DefaultButton)`
   margin-top: 30px;
   width: 134px;
   height: 30px;
+`;
+
+export const NavigationLink = styled.Text`
+  padding-bottom: 5px;
+  font-family: NunitoSemiBold;
+  font-size: 12px;
+  line-height: 16px;
+  color: ${colors.main_red};
+`;
+
+export const PaymentLabel = styled(TotalPriceLabel)`
+  align-self: flex-start;
+  margin-left: 10px;
 `;
