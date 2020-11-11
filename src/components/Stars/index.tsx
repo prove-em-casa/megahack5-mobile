@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { StarsContainer } from '../styles/components/stars';
-import colors from '../styles/colors';
+import { StarsContainer } from './styles';
+import colors from '../../styles/colors';
 
 interface StarProps {
   stars: number;

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Address, Title } from '../styles';
-import { BodyText } from '../../../styles/global';
+import { Address, AddressTitle } from './styles';
+import { BodyText } from '../../styles/global';
 
 interface AddressContainerProps {
   address: string;
@@ -16,7 +16,7 @@ const AddressContainer = ({
 }: AddressContainerProps) => {
   return (
     <Address onPress={handleSelectAddress}>
-      <Title>{address}</Title>
+      <AddressTitle>{address}</AddressTitle>
 
       {complement && <BodyText>{complement}</BodyText>}
     </Address>

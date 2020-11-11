@@ -1,14 +1,39 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import SignIn from '../screens/SignIn';
+import CreditCardList from '../screens/CreditCardList';
+import AddressList from '../screens/AddressList';
+import colors from '../styles/colors';
+import TabNavigator from './TabNavigator';
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="SignIn" component={SignIn} />
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.main_red,
+        },
+        headerTintColor: colors.background_white,
+      }}>
+      <Stack.Screen
+        name="Home"
+        component={TabNavigator}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CreditCardList"
+        component={CreditCardList}
+        options={{ headerTitle: 'Cartões de crédito' }}
+      />
+      <Stack.Screen
+        name="AddressList"
+        component={AddressList}
+        options={{ headerTitle: 'Endereços de entrega' }}
+      />
     </Stack.Navigator>
   );
 };

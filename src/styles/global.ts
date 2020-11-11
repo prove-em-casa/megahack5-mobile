@@ -51,3 +51,11 @@ export const DefaultButtonText = styled.Text`
   line-height: 21.82px;
   color: #ffffff;
 `;
+
+export const FullLineInput = styled.TextInput`
+  border: 1px solid #d3d3de;
+  border-radius: 4px;
+  width: 100%;
+  height: 40px;
+  background: #fff;
+`;

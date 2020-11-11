@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 
-import { ListContainer, AddIcon } from '../styles';
-import { DefaultButton, DefaultButtonText } from '../../../styles/global';
-import AddressContainer from './AddressContainer';
+import { AddressesListContainer, AddAddressIcon } from './styles';
+import { DefaultButton, DefaultButtonText } from '../../styles/global';
+import AddressContainer from '../../components/AddressContainer';
 
 interface Address {
   id: number;
@@ -11,11 +11,7 @@ interface Address {
   complement?: string;
 }
 
-interface AddressesListProps {
-  handleSelectAddress: (address: Address) => void;
-}
-
-const AddressesList = ({ handleSelectAddress }: AddressesListProps) => {
+const AddressList = () => {
   const [addresses] = useState<Address[]>([
     {
       id: 1,
@@ -35,12 +31,12 @@ const AddressesList = ({ handleSelectAddress }: AddressesListProps) => {
     );
 
     if (selectedAddress) {
-      handleSelectAddress(selectedAddress);
+      // TODO: Set on context api
     }
   };
 
   return (
-    <ListContainer>
+    <AddressesListContainer>
       <FlatList
         data={addresses}
         keyExtractor={(item) => item.id.toString()}
@@ -55,11 +51,11 @@ const AddressesList = ({ handleSelectAddress }: AddressesListProps) => {
       />
 
       <DefaultButton>
-        <AddIcon name="plus" size={25} />
+        <AddAddressIcon name="plus" size={25} />
         <DefaultButtonText>Cadastrar novo endereço</DefaultButtonText>
       </DefaultButton>
-    </ListContainer>
+    </AddressesListContainer>
   );
 };
 
-export default AddressesList;
+export default AddressList;

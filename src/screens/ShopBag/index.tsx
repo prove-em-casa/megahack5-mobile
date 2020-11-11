@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { View, Modal, FlatList } from 'react-native';
-import ProductContainer from './components/ProductContainer';
+import { View, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   ShopBagContainer,
   SessionContainer,
   SessionTitle,
-  ModalContainer,
-  Title,
+  NavigationLink,
   PriceContainer,
-  Price,
+  DeliveryTax,
   TotalPrice,
   LargeSessionTitle,
   DisclaimerText,
@@ -22,10 +21,9 @@ import {
   Header,
   HeaderText,
 } from '../../styles/global';
-import AddressesList from './components/AddressesList';
-import AddressContainer from './components/AddressContainer';
-import CardsList from './components/CardsList';
-import CardContainer from './components/CardContainer';
+import CreditCardContainer from '../../components/CreditCardContainer';
+import AddressContainer from '../../components/AddressContainer';
+import ProductContainer from '../../components/ProductContainer';
 
 interface Address {
   id: number;
@@ -47,10 +45,11 @@ interface Product {
 }
 
 const ShopList = () => {
-  const [addressedModalOpen, setAddressesModalOpen] = useState(false);
-  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
-  const [cardModalOpen, setCardModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<CreditCard | null>(null);
+  // TODO: Get from context
+  const [selectedAddress] = useState<Address | null>(null);
+
+  // TODO: Get from context
+  const [selectedCard] = useState<CreditCard | null>(null);
   const [products, setProducts] = useState<Product[]>([
     {
       id: 1,
@@ -69,20 +68,11 @@ const ShopList = () => {
       stars: 4,
     },
   ]);
+  const navigator = useNavigation();
 
   const handleRemoveProduct = (id: number) => {
     const filteredProducts = products.filter((product) => product.id !== id);
     setProducts(filteredProducts);
-  };
-
-  const handleSelectAddress = (address: Address) => {
-    setSelectedAddress(address);
-    setAddressesModalOpen(false);
-  };
-
-  const handleSelectCard = (card: CreditCard) => {
-    setSelectedCard(card);
-    setCardModalOpen(false);
   };
 
   return (
@@ -101,12 +91,12 @@ const ShopList = () => {
             <AddressContainer
               address={selectedAddress.address}
               complement={selectedAddress.complement}
-              handleSelectAddress={() => setAddressesModalOpen(true)}
+              handleSelectAddress={() => navigator.navigate('AddressList')}
             />
           ) : (
-              <Title onPress={() => setAddressesModalOpen(true)}>
+              <NavigationLink onPress={() => navigator.navigate('AddressList')}>
                 Escolher endereço
-              </Title>
+              </NavigationLink>
             )}
         </SessionContainer>
 
@@ -133,7 +123,7 @@ const ShopList = () => {
         <SessionContainer>
           <PriceContainer>
             <SessionTitle>Taxa de entrega</SessionTitle>
-            <Price>R$15,00</Price>
+            <DeliveryTax>R$15,00</DeliveryTax>
           </PriceContainer>
 
           <PriceContainer>
@@ -151,14 +141,17 @@ const ShopList = () => {
 
         <SessionContainer>
           {selectedCard ? (
-            <CardContainer
+            <CreditCardContainer
               lastDigits={selectedCard.lastDigits}
-              handleSelectCard={() => setCardModalOpen(true)}
+              handleSelectCreditCard={() =>
+                navigator.navigate('CreditCardList')
+              }
             />
           ) : (
-              <Title onPress={() => setCardModalOpen(true)}>
+              <NavigationLink
+                onPress={() => navigator.navigate('CreditCardList')}>
                 Escolher cartão
-              </Title>
+              </NavigationLink>
             )}
         </SessionContainer>
 
@@ -167,30 +160,6 @@ const ShopList = () => {
             <DefaultButtonText>Fazer pedido</DefaultButtonText>
           </DefaultButton>
         </ButtonContainer>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={addressedModalOpen}
-          onRequestClose={() => {
-            setAddressesModalOpen(false);
-          }}>
-          <ModalContainer>
-            <AddressesList handleSelectAddress={handleSelectAddress} />
-          </ModalContainer>
-        </Modal>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={cardModalOpen}
-          onRequestClose={() => {
-            setCardModalOpen(false);
-          }}>
-          <ModalContainer>
-            <CardsList handleSelectCard={handleSelectCard} />
-          </ModalContainer>
-        </Modal>
       </ShopBagContainer>
     </Container>
   );

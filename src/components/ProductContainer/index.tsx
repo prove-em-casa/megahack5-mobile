@@ -2,16 +2,16 @@ import React from 'react';
 
 import {
   Product,
-  Title,
+  ProductTitle,
   PriceAndSizeContainer,
-  Price,
-  Size,
+  ProductPrice,
+  ProductSize,
   ProductImage,
-  DescriptionContainer,
-  TrashIcon,
-} from '../styles';
-import { BodyText } from '../../../styles/global';
-import Stars from '../../../components/Stars';
+  ProductDescriptionContainer,
+  RemoveProductIcon,
+} from './styles';
+import { BodyText } from '../../styles/global';
+import Stars from '../Stars';
 
 interface ProductContainerProps {
   title: string;
@@ -33,17 +33,17 @@ const ProductContainer = ({
   return (
     <Product>
       <ProductImage source={{ uri: image }} />
-      <DescriptionContainer>
-        <Title numberOfLines={1}>{title}</Title>
+      <ProductDescriptionContainer>
+        <ProductTitle numberOfLines={1}>{title}</ProductTitle>
         <Stars stars={stars} />
         <PriceAndSizeContainer>
-          <Price>{price}</Price>
+          <ProductPrice>{price}</ProductPrice>
           <BodyText>Tamanho</BodyText>
-          <Size>{size}</Size>
+          <ProductSize>{size}</ProductSize>
         </PriceAndSizeContainer>
-      </DescriptionContainer>
+      </ProductDescriptionContainer>
 
-      <TrashIcon name="trash" size={22} onPress={onRemove} />
+      <RemoveProductIcon name="trash" size={22} onPress={onRemove} />
     </Product>
   );
 };
