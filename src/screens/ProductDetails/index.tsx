@@ -26,7 +26,7 @@ const ProductDetails = () => {
         <TouchableOpacity>
           <Icon name="chevron-back" size={26} color="#fff" />
         </TouchableOpacity>
-        <HeaderText>DETALHES</HeaderText>
+        <HeaderText style={{ marginRight: 20 }}>DETALHES</HeaderText>
         <View />
       </Header>
 
