@@ -58,4 +58,20 @@ export const FullLineInput = styled.TextInput`
   width: 100%;
   height: 40px;
   background: #fff;
+  margin-top: 10px;
+`;
+
+export const InputLine = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+`;
+
+export const HalfLineInput = styled.TextInput`
+  border: 1px solid #d3d3de;
+  border-radius: 4px;
+  width: 48%;
+  height: 40px;
+  background: #fff;
 `;
