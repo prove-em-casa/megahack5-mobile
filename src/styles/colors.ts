@@ -6,5 +6,6 @@ export default {
   divider_gray: '#DADAE6',
   main_green: '#1ACA41',
   stars_yellow: '#EDCB51',
+  status_yellow: '#F9B753',
   background_white: '#fff',
 };

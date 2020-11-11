@@ -55,7 +55,7 @@ const ShopList = () => {
       id: 1,
       title: 'Calça flare em viscose lisa com cinto preto',
       image: 'https://img.lojasrenner.com.br/item/551255835/large/10.jpg',
-      price: 179.9,
+      price: 39.99,
       size: 'M',
       stars: 5,
     },
@@ -63,7 +63,7 @@ const ShopList = () => {
       id: 2,
       title: 'Vestido curto evasê em linho com cinto faixa vermelho',
       image: 'https://img.lojasrenner.com.br/item/552440645/large/10.jpg',
-      price: 189.9,
+      price: 39.99,
       size: 'P',
       stars: 4,
     },
@@ -109,6 +109,7 @@ const ShopList = () => {
             renderItem={({ item: product }: { item: Product }) => (
               <ProductContainer
                 key={product.id}
+                showRemoveIcon
                 onRemove={() => handleRemoveProduct(product.id)}
                 title={product.title}
                 image={product.image}
@@ -156,7 +157,8 @@ const ShopList = () => {
         </SessionContainer>
 
         <ButtonContainer>
-          <DefaultButton>
+          <DefaultButton
+            onPress={() => navigator.navigate('OrderStatusWaiting')}>
             <DefaultButtonText>Fazer pedido</DefaultButtonText>
           </DefaultButton>
         </ButtonContainer>

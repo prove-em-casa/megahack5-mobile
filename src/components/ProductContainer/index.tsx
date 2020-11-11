@@ -19,7 +19,9 @@ interface ProductContainerProps {
   price: number;
   size: string;
   stars: number;
-  onRemove: () => void;
+
+  showRemoveIcon?: boolean;
+  onRemove?: () => void;
 }
 
 const ProductContainer = ({
@@ -28,6 +30,7 @@ const ProductContainer = ({
   price,
   size,
   stars,
+  showRemoveIcon,
   onRemove,
 }: ProductContainerProps) => {
   return (
@@ -43,7 +46,9 @@ const ProductContainer = ({
         </PriceAndSizeContainer>
       </ProductDescriptionContainer>
 
-      <RemoveProductIcon name="trash" size={22} onPress={onRemove} />
+      {showRemoveIcon && (
+        <RemoveProductIcon name="trash" size={22} onPress={onRemove} />
+      )}
     </Product>
   );
 };

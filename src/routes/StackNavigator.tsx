@@ -7,6 +7,7 @@ import AddCreditCard from '../screens/AddCreditCard';
 
 import colors from '../styles/colors';
 import TabNavigator from './TabNavigator';
+import OrderStatusWaiting from '../screens/OrderStatusWaiting';
 
 const Stack = createStackNavigator();
 
@@ -37,10 +38,14 @@ const StackNavigator = () => {
         options={{ headerTitle: 'Cadastrar cartão' }}
       />
       <Stack.Screen
-
         name="AddressList"
         component={AddressList}
         options={{ headerTitle: 'Endereços de entrega' }}
+      />
+      <Stack.Screen
+        name="OrderStatusWaiting"
+        component={OrderStatusWaiting}
+        options={{ headerTitle: 'ACOMPANHE SEU PEDIDO' }}
       />
     </Stack.Navigator>
   );
