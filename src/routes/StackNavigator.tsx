@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import CreditCardList from '../screens/CreditCardList';
 import AddressList from '../screens/AddressList';
 import AddCreditCard from '../screens/AddCreditCard';
+
 import colors from '../styles/colors';
 import TabNavigator from './TabNavigator';
 
@@ -36,6 +37,7 @@ const StackNavigator = () => {
         options={{ headerTitle: 'Cadastrar cartão' }}
       />
       <Stack.Screen
+
         name="AddressList"
         component={AddressList}
         options={{ headerTitle: 'Endereços de entrega' }}
