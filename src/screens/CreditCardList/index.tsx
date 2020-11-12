@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { CreditCardsListContainer, AddCreditCardIcon } from './styles';
 import { DefaultButton, DefaultButtonText } from '../../styles/global';
 import CardContainer from '../../components/CreditCardContainer';
-
-interface CreditCard {
-  id: number;
-  lastDigits: number;
-}
+import { RootState } from '../../store/store';
+import { selectShopBagCreditCard } from '../../store/ducks/shopBag';
 
 const CreditCardList = () => {
-  const [creditCards] = useState<CreditCard[]>([
+  const { creditCard: selectedCreditCard } = useSelector(
+    ({ shopBag }: RootState) => shopBag,
+  );
+  const [creditCards] = useState<ICreditCard[]>([
     {
       id: 1,
       lastDigits: 1234,
@@ -23,12 +24,13 @@ const CreditCardList = () => {
     },
   ]);
   const navigator = useNavigation();
+  const dispatch = useDispatch();
 
   const onSelectCreditCard = (id: number) => {
-    const selectedCard = creditCards.find((card: CreditCard) => card.id === id);
+    const creditCard = creditCards.find((card: ICreditCard) => card.id === id);
 
-    if (selectedCard) {
-      // TODO: Set selectedCard on the context
+    if (creditCard) {
+      dispatch(selectShopBagCreditCard(creditCard));
     }
   };
 
@@ -37,11 +39,15 @@ const CreditCardList = () => {
       <FlatList
         data={creditCards}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item: card }: { item: CreditCard }) => (
+        renderItem={({ item: card }: { item: ICreditCard }) => (
           <CardContainer
             key={card.id}
             lastDigits={card.lastDigits}
             handleSelectCreditCard={() => onSelectCreditCard(card.id)}
+            selectable
+            selected={
+              selectedCreditCard ? selectedCreditCard.id === card.id : false
+            }
           />
         )}
         ListFooterComponent={

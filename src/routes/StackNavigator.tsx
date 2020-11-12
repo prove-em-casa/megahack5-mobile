@@ -12,8 +12,24 @@ import OrderStatusCanceled from '../screens/OrderStatusCanceled';
 import OrderStatusTrying from '../screens/OrderStatusTrying';
 import AddressMap from '../screens/AddressMap';
 import OrderStatusConcluded from '../screens/OrderStatusConcluded';
+import ProductList from '../screens/ProductList';
+import ProductDetails from '../screens/ProductDetails';
 
-const Stack = createStackNavigator();
+export type StackNavigatorParamList = {
+  Home: undefined;
+  CreditCardList: undefined;
+  AddCreditCard: undefined;
+  AddressList: undefined;
+  OrderStatusWaiting: undefined;
+  OrderStatusTrying: undefined;
+  OrderStatusCanceled: undefined;
+  OrderStatusConcluded: undefined;
+  AddressMap: undefined;
+  ProductList: { shop: IShop };
+  ProductDetails: { product: IProduct };
+};
+
+const Stack = createStackNavigator<StackNavigatorParamList>();
 
 const StackNavigator = () => {
   return (
@@ -70,6 +86,16 @@ const StackNavigator = () => {
         name="AddressMap"
         component={AddressMap}
         options={{ headerTitle: 'CADASTRAR ENDEREÇO' }}
+      />
+      <Stack.Screen
+        name="ProductList"
+        component={ProductList}
+        options={{ headerTitle: 'NOME DA LOJA' }}
+      />
+      <Stack.Screen
+        name="ProductDetails"
+        component={ProductDetails}
+        options={{ headerTitle: 'DETALHES DO PRODUTO' }}
       />
     </Stack.Navigator>
   );

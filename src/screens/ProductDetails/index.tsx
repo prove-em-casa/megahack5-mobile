@@ -1,14 +1,15 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text } from 'react-native';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { StackNavigatorParamList } from '../../routes/StackNavigator';
 import {
   Container,
   DefaultButton,
   DefaultButtonText,
-  Header,
-  HeaderText,
   BodyText,
 } from '../../styles/global';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {
   AvailableText,
   DetailsContainer,
@@ -16,25 +17,43 @@ import {
   SizeBlock,
   SizesContainer,
 } from './styles';
-
-const camisetaImg = require('../../../assets/img/camiseta-1.png');
+import { RootState } from '../../store/store';
+import {
+  addProductToShopBag,
+  removeProductFromShopBag,
+} from '../../store/ducks/shopBag';
 
 const ProductDetails = () => {
+  const { params } = useRoute<
+    RouteProp<StackNavigatorParamList, 'ProductDetails'>
+  >();
+  const { products } = useSelector(({ shopBag }: RootState) => shopBag);
+  const dispatch = useDispatch();
+
+  if (!params) {
+    return null;
+  }
+
+  const { product } = params;
+  if (!product) {
+    return null;
+  }
+
+  const handleAddProduct = () => {
+    dispatch(addProductToShopBag(product));
+  };
+
+  const handleRemoveProduct = () => {
+    dispatch(removeProductFromShopBag(product));
+  };
+
   return (
     <Container>
-      <Header>
-        <TouchableOpacity>
-          <Icon name="chevron-back" size={26} color="#fff" />
-        </TouchableOpacity>
-        <HeaderText style={{ marginRight: 20 }}>DETALHES</HeaderText>
-        <View />
-      </Header>
-
       <DetailsContainer>
-        <Image source={camisetaImg} />
+        <Image source={{ uri: product.img_url }} />
         <AvailableText>Disponivel</AvailableText>
-        <BodyText>Camiseta preta - masculina</BodyText>
-        <PriceText>R$ 39,90</PriceText>
+        <BodyText>{product.name}</BodyText>
+        <PriceText>{product.price}</PriceText>
       </DetailsContainer>
 
       <SizeBlock>
@@ -52,9 +71,15 @@ const ProductDetails = () => {
         </SizesContainer>
       </SizeBlock>
 
-      <DefaultButton>
-        <DefaultButtonText>Adicionar a sacola</DefaultButtonText>
-      </DefaultButton>
+      {products.find((selectedProduct) => selectedProduct.id === product.id) ? (
+        <DefaultButton onPress={() => handleRemoveProduct()}>
+          <DefaultButtonText>Remover da sacola</DefaultButtonText>
+        </DefaultButton>
+      ) : (
+          <DefaultButton onPress={() => handleAddProduct()}>
+            <DefaultButtonText>Adicionar à sacola</DefaultButtonText>
+          </DefaultButton>
+        )}
     </Container>
   );
 };

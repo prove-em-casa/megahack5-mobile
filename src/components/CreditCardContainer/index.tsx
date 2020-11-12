@@ -1,4 +1,5 @@
 import React from 'react';
+import { CheckBox } from 'react-native-elements';
 
 import {
   CreditCard,
@@ -13,14 +14,20 @@ const visaLogo = require('../../../assets/img/visa_logo.png');
 interface CreditCardContainerProps {
   lastDigits: number;
   handleSelectCreditCard?: () => void;
+  selectable?: boolean;
+  selected?: boolean;
 }
 
 const CreditCardContainer = ({
   lastDigits,
   handleSelectCreditCard,
+  selectable,
+  selected,
 }: CreditCardContainerProps) => {
   return (
     <CreditCard onPress={handleSelectCreditCard}>
+      {selectable && <CheckBox checked={!!selected} />}
+
       <CreditCardImage source={visaLogo} />
 
       <CreditCardDetails>

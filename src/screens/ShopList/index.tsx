@@ -1,16 +1,10 @@
 import React from 'react';
 import { useCachedFetch } from 'react-cached-fetch';
-import { View } from 'react-native';
+import { View, FlatList } from 'react-native';
+
+import { ShopListContainer } from './styles';
 import { Container, Header, HeaderText } from '../../styles/global';
 import ShopContainer from './components/ShopContainer';
-
-interface IShop {
-  id: number;
-  shop: string;
-  open: string;
-  close: string;
-  where_is_located: string;
-}
 
 const ShopList = () => {
   const { data, isLoading } = useCachedFetch('/shop', { initialValue: [] });
@@ -27,11 +21,15 @@ const ShopList = () => {
         <View />
       </Header>
 
-      {data ? (
-        data.map((shop: IShop) => <ShopContainer key={shop.id} shop={shop} />)
-      ) : (
-        <View />
-      )}
+      <ShopListContainer>
+        <FlatList
+          data={data}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item: shop }: { item: IShop }) => (
+            <ShopContainer key={shop.id} shop={shop} />
+          )}
+        />
+      </ShopListContainer>
     </Container>
   );
 };
