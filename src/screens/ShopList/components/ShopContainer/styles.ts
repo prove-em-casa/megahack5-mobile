@@ -32,3 +32,8 @@ export const OpenHours = styled.Text`
   font-family: NunitoSans-Regular;
   font-size: 10px;
 `;
+
+export const ShopImage = styled.Image`
+  width: 39px;
+  height: 39px;
+`;

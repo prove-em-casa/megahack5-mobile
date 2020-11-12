@@ -14,22 +14,27 @@ import {
   TryingStatusText,
 } from './styles';
 
-const rennerLogo = require('../../../assets/img/renner-logo.png');
-
 interface OrderContainerProps {
   id: number;
-  shopName: string;
-  date: string;
+  shop_name: string;
+  date: Date;
   status: 'waiting' | 'trying' | 'canceled' | 'concluded';
-  route: string; // Temporary, should use order's id
+  shop_img_url: string;
 }
+
+const statusRoute = {
+  waiting: 'OrderStatusWaiting',
+  trying: 'OrderStatusTrying',
+  canceled: 'OrderStatusCanceled',
+  concluded: 'OrderStatusConcluded',
+};
 
 const OrderContainer = ({
   id,
-  shopName,
+  shop_name,
   date,
   status,
-  route,
+  shop_img_url,
 }: OrderContainerProps) => {
   const navigation = useNavigation();
 
@@ -47,14 +52,23 @@ const OrderContainer = ({
     return null;
   };
 
+  const handleNavigateToOrderDetails = () => {
+    const route = statusRoute[status];
+    if (!route) {
+      return;
+    }
+
+    navigation.navigate(route, { order_id: id });
+  };
+
   return (
-    <Order onPress={() => navigation.navigate(route)}>
-      <OrderShopImage source={rennerLogo} />
+    <Order onPress={handleNavigateToOrderDetails}>
+      <OrderShopImage source={{ uri: shop_img_url }} />
 
       <OrderDescriptionContainer>
         <DescriptionLine>
           <DescriptionLabel>Loja:</DescriptionLabel>
-          <DescriptionValue>{shopName}</DescriptionValue>
+          <DescriptionValue>{shop_name}</DescriptionValue>
         </DescriptionLine>
 
         <DescriptionLine>

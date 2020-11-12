@@ -21,7 +21,7 @@ const ProductList = () => {
   const { data: products, isLoading } = useCachedFetch(
     `/products?shop_id=${shop ? shop.id : 0}`,
     {
-      initialValue: {},
+      initialValue: [],
       dependencies: [!!shop, !!shop.id],
     },
   );

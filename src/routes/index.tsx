@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import UnauthenticatedNavigator from './UnauthenticatedNavigator';
 import StackNavigator from './StackNavigator';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { RootState } from '../store/store';
+import { setJwtHeader } from '../services/api';
 
 const Navigator = () => {
-  const [isSignedIn, setIsSignedIn] = useState<boolean>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { session_token } = useSelector(({ auth }: RootState) => auth);
 
   useEffect(() => {
-    AsyncStorage.getItem('@sessionToken').then((token) => {
-      if (token) {
-        setIsLoading(false);
-        setIsSignedIn(true);
-      }
-    });
-  }, []);
+    if (!session_token) {
+      return;
+    }
 
-  if (isLoading) {
-    return null;
-  }
+    setJwtHeader(session_token);
+  }, [session_token]);
 
-  if (isSignedIn) {
+  if (session_token) {
     return <StackNavigator />;
   }
 

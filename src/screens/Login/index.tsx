@@ -1,26 +1,28 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ToastAndroid, TouchableOpacity } from 'react-native';
-import api from '../../services/api';
+
+import api, { setJwtHeader } from '../../services/api';
 import {
   Container,
   DefaultButton,
   DefaultButtonText,
   StyledInput,
 } from '../../styles/global';
-
 import {
   AccountText,
   AlignBlock,
   CreateAccountText,
   ForgotPassText,
 } from './styles';
+import { setSessionToken } from '../../store/ducks/auth';
 
 const Login = () => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const { navigate } = useNavigation();
+  const dispatch = useDispatch();
 
   async function authenticateUser() {
     if (!email || !password) {
@@ -35,8 +37,8 @@ const Login = () => {
         password,
       })
       .then((response) => {
-        AsyncStorage.setItem('@sessionToken', response.data.token);
-        navigate('Home');
+        dispatch(setSessionToken(response.data.token));
+        setJwtHeader(response.data.token);
       })
       .catch(() => {
         ToastAndroid.show('E-mail ou senha inválidos', ToastAndroid.SHORT);

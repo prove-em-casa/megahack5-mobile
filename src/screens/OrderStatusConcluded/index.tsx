@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { FlatList, Image } from 'react-native';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import React from 'react';
+import { useCachedFetch } from 'react-cached-fetch';
+import { FlatList } from 'react-native';
 
 const visaLogo = require('./../../../assets/img/visa_logo.png');
 
 import ProductContainer from '../../components/ProductContainer';
+import { StackNavigatorParamList } from '../../routes/StackNavigator';
 import {
   LineContainer,
   LineLabel,
@@ -18,25 +21,22 @@ import {
 } from './styles';
 
 const OrderStatusConcluded = () => {
-  const [products] = useState<IProduct[]>([
-    {
-      id: 1,
-      title: 'Calça flare em viscose lisa com cinto preto',
-      image: 'https://img.lojasrenner.com.br/item/551255835/large/10.jpg',
-      price: 39.99,
-      size: 'M',
-      stars: 5,
-    },
-    {
-      id: 2,
-      title: 'Vestido curto evasê em linho com cinto faixa vermelho',
-      image: 'https://img.lojasrenner.com.br/item/552440645/large/10.jpg',
-      price: 39.99,
-      size: 'P',
-      stars: 4,
-    },
-  ]);
+  const { params } = useRoute<
+    RouteProp<StackNavigatorParamList, 'OrderStatusConcluded'>
+  >();
 
+  const { data: order, isLoading } = useCachedFetch(
+    `/order/${params ? params.order_id : 0}`,
+  );
+
+  if (!params || !params.order_id) {
+    return null;
+  }
+
+  if (!order && isLoading) {
+    // TODO: Display feedback
+    return null;
+  }
   return (
     <OrderStatusConcludedContainer>
       <BottomBorderedSessionContainer>
@@ -47,13 +47,13 @@ const OrderStatusConcluded = () => {
       </BottomBorderedSessionContainer>
 
       <FlatList
-        data={products}
+        data={order ? order.products : []}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item: product }: { item: IProduct }) => (
           <ProductContainer
             key={product.id}
-            title={product.title}
-            image={product.image}
+            name={product.name}
+            img_url={product.img_url}
             price={product.price}
             size={product.size}
             stars={product.stars}

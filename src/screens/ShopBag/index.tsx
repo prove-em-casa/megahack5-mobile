@@ -77,8 +77,8 @@ const ShopBag = () => {
               key={product.id}
               showRemoveIcon
               onRemove={() => handleRemoveProduct(product)}
-              title={product.title}
-              image={product.image}
+              name={product.name}
+              img_url={product.img_url}
               price={product.price}
               size={product.size}
               stars={product.stars}

@@ -50,7 +50,10 @@ const ProductDetails = () => {
   return (
     <Container>
       <DetailsContainer>
-        <Image source={{ uri: product.img_url }} />
+        <Image
+          source={{ uri: product.img_url }}
+          style={{ width: 100, height: 100 }}
+        />
         <AvailableText>Disponivel</AvailableText>
         <BodyText>{product.name}</BodyText>
         <PriceText>{product.price}</PriceText>
