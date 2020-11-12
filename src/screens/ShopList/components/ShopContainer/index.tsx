@@ -1,17 +1,31 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Alert, Image, View } from 'react-native';
 
 import { Description, OpenHours, Shop, Title } from './styles';
 const rennerLogo = require('../../../../../assets/img/renner-logo.png');
 
-const ShopContainer = () => {
+interface IShopProps {
+  shop: {
+    id: number;
+    shop: string;
+    open: string;
+    close: string;
+    where_is_located: string;
+  };
+}
+
+const ShopContainer = ({ shop }: IShopProps) => {
   return (
     <Shop>
       <Image source={rennerLogo} />
       <View>
-        <Title>Renner - Shopping Estação</Title>
+        <Title>
+          {shop.shop} - {shop.where_is_located}
+        </Title>
         <Description>Há 1.6km de você</Description>
-        <OpenHours>Aberto: 08:00 às 16:00</OpenHours>
+        <OpenHours>
+          Aberto: {shop.open} às {shop.close}
+        </OpenHours>
       </View>
     </Shop>
   );

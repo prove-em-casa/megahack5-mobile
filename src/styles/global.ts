@@ -34,6 +34,18 @@ export const BodyText = styled.Text`
   color: ${colors.text_gray};
 `;
 
+export const StyledInput = styled.TextInput`
+  width: 280px;
+  height: 40px;
+  margin-bottom: 16px;
+  border: 1px solid ${colors.secundary_gray};
+  border-radius: 4px;
+  padding-left: 7px;
+  font-family: NunitoSans-Regular;
+  font-size: 12px;
+  color: ${colors.secundary_gray};
+`;
+
 export const DefaultButton = styled.TouchableOpacity`
   background: ${colors.main_red};
   border-radius: 18px;
@@ -47,7 +59,7 @@ export const DefaultButton = styled.TouchableOpacity`
 `;
 
 export const DefaultButtonText = styled.Text`
-  font-family: NunitoSans-Regular;
+  font-family: NunitoSans-SemiBold;
   font-size: 16px;
   line-height: 21.82px;
   color: #ffffff;

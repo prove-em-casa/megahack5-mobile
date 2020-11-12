@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 import colors from '../../../../styles/colors';
 
-export const Product = styled.View`
+export const Product = styled.TouchableOpacity`
   border-radius: 4px;
   border-color: ${colors.secundary_gray};
   border-width: 1px;

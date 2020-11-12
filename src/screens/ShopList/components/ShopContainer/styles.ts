@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import colors from '../../../../styles/colors';
 
-export const Shop = styled.View`
+export const Shop = styled.TouchableOpacity`
   border-radius: 4px;
   border-color: #bbbbc4;
   border-width: 1px;
