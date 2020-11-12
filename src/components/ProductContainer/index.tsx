@@ -14,8 +14,8 @@ import { BodyText } from '../../styles/global';
 import Stars from '../Stars';
 
 interface ProductContainerProps {
-  title: string;
-  image: string;
+  name: string;
+  img_url: string;
   price: number;
   size: string;
   stars: number;
@@ -25,8 +25,8 @@ interface ProductContainerProps {
 }
 
 const ProductContainer = ({
-  title,
-  image,
+  name,
+  img_url,
   price,
   size,
   stars,
@@ -35,9 +35,9 @@ const ProductContainer = ({
 }: ProductContainerProps) => {
   return (
     <Product>
-      <ProductImage source={{ uri: image }} />
+      <ProductImage source={{ uri: img_url }} />
       <ProductDescriptionContainer>
-        <ProductTitle numberOfLines={1}>{title}</ProductTitle>
+        <ProductTitle numberOfLines={1}>{name}</ProductTitle>
         <Stars stars={stars} />
         <PriceAndSizeContainer>
           <ProductPrice>{price}</ProductPrice>

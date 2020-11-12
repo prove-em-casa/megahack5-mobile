@@ -42,16 +42,16 @@ const OrderStatusTrying = () => {
   const [products] = useState<IProduct[]>([
     {
       id: 1,
-      title: 'Calça flare em viscose lisa com cinto preto',
-      image: 'https://img.lojasrenner.com.br/item/551255835/large/10.jpg',
+      name: 'Calça flare em viscose lisa com cinto preto',
+      img_url: 'https://img.lojasrenner.com.br/item/551255835/large/10.jpg',
       price: 39.99,
       size: 'M',
       stars: 5,
     },
     {
       id: 2,
-      title: 'Vestido curto evasê em linho com cinto faixa vermelho',
-      image: 'https://img.lojasrenner.com.br/item/552440645/large/10.jpg',
+      name: 'Vestido curto evasê em linho com cinto faixa vermelho',
+      img_url: 'https://img.lojasrenner.com.br/item/552440645/large/10.jpg',
       price: 39.99,
       size: 'P',
       stars: 4,
@@ -152,8 +152,8 @@ const OrderStatusTrying = () => {
         renderItem={({ item: product }: { item: IProduct }) => (
           <SelectableProductContainer
             key={product.id}
-            title={product.title}
-            image={product.image}
+            name={product.name}
+            img_url={product.img_url}
             price={product.price}
             size={product.size}
             stars={product.stars}

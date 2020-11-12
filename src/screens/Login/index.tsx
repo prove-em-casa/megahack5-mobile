@@ -2,14 +2,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ToastAndroid, TouchableOpacity } from 'react-native';
-import api from '../../services/api';
+
+import api, { setJwtHeader } from '../../services/api';
 import {
   Container,
   DefaultButton,
   DefaultButtonText,
   StyledInput,
 } from '../../styles/global';
-
 import {
   AccountText,
   AlignBlock,
@@ -36,6 +36,7 @@ const Login = () => {
       })
       .then((response) => {
         AsyncStorage.setItem('@sessionToken', response.data.token);
+        setJwtHeader(response.data.token);
         navigate('Home');
       })
       .catch(() => {
