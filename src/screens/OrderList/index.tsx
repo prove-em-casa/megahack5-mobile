@@ -9,7 +9,7 @@ interface Order {
   id: number;
   shopName: string;
   date: string;
-  status: 'waiting' | 'trying' | 'canceled';
+  status: 'waiting' | 'trying' | 'canceled' | 'concluded';
   route: string;
 }
 
@@ -35,6 +35,13 @@ const OrderList = () => {
       date: '10/11/2020 - 15:00',
       status: 'canceled',
       route: 'OrderStatusCanceled',
+    },
+    {
+      id: 940156,
+      shopName: 'Renner Shopping Curitiba',
+      date: '8/11/2020 - 13:20',
+      status: 'concluded',
+      route: 'OrderStatusConcluded',
     },
   ]);
 

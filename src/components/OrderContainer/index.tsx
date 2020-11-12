@@ -20,7 +20,7 @@ interface OrderContainerProps {
   id: number;
   shopName: string;
   date: string;
-  status: 'waiting' | 'trying' | 'canceled';
+  status: 'waiting' | 'trying' | 'canceled' | 'concluded';
   route: string; // Temporary, should use order's id
 }
 
@@ -40,6 +40,8 @@ const OrderContainer = ({
       return <CanceledStatusText>Cancelado</CanceledStatusText>;
     } else if (status === 'trying') {
       return <TryingStatusText>Chegou para experimentar</TryingStatusText>;
+    } else if (status === 'concluded') {
+      return <TryingStatusText>Concluído</TryingStatusText>;
     }
 
     return null;

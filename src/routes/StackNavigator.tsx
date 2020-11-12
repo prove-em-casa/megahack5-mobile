@@ -11,6 +11,7 @@ import OrderStatusWaiting from '../screens/OrderStatusWaiting';
 import OrderStatusCanceled from '../screens/OrderStatusCanceled';
 import OrderStatusTrying from '../screens/OrderStatusTrying';
 import AddressMap from '../screens/AddressMap';
+import OrderStatusConcluded from '../screens/OrderStatusConcluded';
 
 const Stack = createStackNavigator();
 
@@ -59,6 +60,11 @@ const StackNavigator = () => {
         name="OrderStatusTrying"
         component={OrderStatusTrying}
         options={{ headerTitle: 'ACOMPANHE SEU PEDIDO' }}
+      />
+      <Stack.Screen
+        name="OrderStatusConcluded"
+        component={OrderStatusConcluded}
+        options={{ headerTitle: 'DETALHES DO PEDIDO' }}
       />
       <Stack.Screen
         name="AddressMap"
