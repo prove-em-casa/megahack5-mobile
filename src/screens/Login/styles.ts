@@ -4,7 +4,7 @@ import colors from '../../styles/colors';
 export const AlignBlock = styled.View`
   align-self: flex-start;
   margin-left: 48px;
-  margin-bottom: 35px;
+  margin-bottom: 120px;
 `;
 
 export const AccountText = styled.Text`
@@ -16,10 +16,6 @@ export const AccountText = styled.Text`
 export const CreateAccountText = styled(AccountText)`
   color: ${colors.main_red};
   font-weight: bold;
-`;
-
-export const Logo = styled.Image`
-  margin-bottom: 50px;
 `;
 
 export const ForgotPassText = styled.Text`

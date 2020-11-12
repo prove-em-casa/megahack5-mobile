@@ -12,10 +12,7 @@ import {
   AlignBlock,
   CreateAccountText,
   ForgotPassText,
-  Logo,
 } from './styles';
-
-const appLogo = require('../../../assets/img/Logo.png');
 
 const Login = () => {
   return (
@@ -26,7 +23,6 @@ const Login = () => {
           <CreateAccountText>Criar Conta</CreateAccountText>
         </TouchableOpacity>
       </AlignBlock>
-      <Logo source={appLogo} />
       <StyledInput placeholder="E-mail" />
       <StyledInput placeholder="Senha" style={{ marginBottom: 48 }} />
       <DefaultButton>

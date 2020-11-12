@@ -10,10 +10,6 @@ import {
 } from '../../styles/global';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { Logo } from '../Login/styles';
-
-const appLogo = require('../../../assets/img/Logo.png');
-
 const Register = () => {
   return (
     <Container>
@@ -24,7 +20,6 @@ const Register = () => {
         <HeaderText style={{ marginRight: 20 }}>CADASTRE-SE</HeaderText>
         <View />
       </Header>
-      <Logo source={appLogo} />
       <StyledInput placeholder="Seu nome" />
       <StyledInput placeholder="E-mail" />
       <StyledInput placeholder="Senha" />
