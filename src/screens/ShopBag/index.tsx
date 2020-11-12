@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   ShopBagContainer,
@@ -24,38 +25,21 @@ import {
 import CreditCardContainer from '../../components/CreditCardContainer';
 import AddressContainer from '../../components/AddressContainer';
 import ProductContainer from '../../components/ProductContainer';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { removeProductFromShopBag } from '../../store/ducks/shopBag';
 
 const ShopBag = () => {
   const {
     address: selectedAddress,
     creditCard: selectedCreditCard,
+    products,
   } = useSelector(({ shopBag }: RootState) => shopBag);
 
-  const [products, setProducts] = useState<IProduct[]>([
-    {
-      id: 1,
-      title: 'Calça flare em viscose lisa com cinto preto',
-      image: 'https://img.lojasrenner.com.br/item/551255835/large/10.jpg',
-      price: 39.99,
-      size: 'M',
-      stars: 5,
-    },
-    {
-      id: 2,
-      title: 'Vestido curto evasê em linho com cinto faixa vermelho',
-      image: 'https://img.lojasrenner.com.br/item/552440645/large/10.jpg',
-      price: 39.99,
-      size: 'P',
-      stars: 4,
-    },
-  ]);
   const navigator = useNavigation();
+  const dispatch = useDispatch();
 
-  const handleRemoveProduct = (id: number) => {
-    const filteredProducts = products.filter((product) => product.id !== id);
-    setProducts(filteredProducts);
+  const handleRemoveProduct = (product: IProduct) => {
+    dispatch(removeProductFromShopBag(product));
   };
 
   return (
@@ -92,7 +76,7 @@ const ShopBag = () => {
             <ProductContainer
               key={product.id}
               showRemoveIcon
-              onRemove={() => handleRemoveProduct(product.id)}
+              onRemove={() => handleRemoveProduct(product)}
               title={product.title}
               image={product.image}
               price={product.price}
