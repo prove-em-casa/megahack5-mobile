@@ -9,8 +9,6 @@ import { OrderListContainer } from './styles';
 const OrderList = () => {
   const { data: orders } = useCachedFetch('/order', { initialValue: [] });
 
-  console.log(orders);
-
   return (
     <Container>
       <Header>

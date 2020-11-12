@@ -22,6 +22,13 @@ interface OrderContainerProps {
   shop_img_url: string;
 }
 
+const statusRoute = {
+  waiting: 'OrderStatusWaiting',
+  trying: 'OrderStatusTrying',
+  canceled: 'OrderStatusCanceled',
+  concluded: 'OrderStatusConcluded',
+};
+
 const OrderContainer = ({
   id,
   shop_name,
@@ -45,8 +52,17 @@ const OrderContainer = ({
     return null;
   };
 
+  const handleNavigateToOrderDetails = () => {
+    const route = statusRoute[status];
+    if (!route) {
+      return;
+    }
+
+    navigation.navigate(route, { order_id: id });
+  };
+
   return (
-    <Order /*onPress={() => navigation.navigate(route)}*/>
+    <Order onPress={handleNavigateToOrderDetails}>
       <OrderShopImage source={{ uri: shop_img_url }} />
 
       <OrderDescriptionContainer>

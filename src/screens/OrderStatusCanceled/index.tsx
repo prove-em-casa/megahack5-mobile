@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import BottomSheet from 'reanimated-bottom-sheet';
+import { useCachedFetch } from 'react-cached-fetch';
 
 import {
   OrderStatusContainer,
@@ -23,29 +25,35 @@ import {
   OrderStatusBottomSheetContent,
 } from './styles';
 import ProductContainer from '../../components/ProductContainer';
+import { StackNavigatorParamList } from '../../routes/StackNavigator';
 
 const avatarImage = require('../../../assets/img/driver_avatar.png');
 
 const OrderStatusCanceled = () => {
+  const { params } = useRoute<
+    RouteProp<StackNavigatorParamList, 'OrderStatusCanceled'>
+  >();
+
+  const { data: order, isLoading } = useCachedFetch(
+    `/order/${params ? params.order_id : 0}`,
+  );
+
   const [showBackdrop, setShowBackdrop] = useState(false);
-  const [products] = useState<IProduct[]>([
-    {
-      id: 1,
-      name: 'Calça flare em viscose lisa com cinto preto',
-      img_url: 'https://img.lojasrenner.com.br/item/551255835/large/10.jpg',
-      price: 39.99,
-      size: 'M',
-      stars: 5,
-    },
-    {
-      id: 2,
-      name: 'Vestido curto evasê em linho com cinto faixa vermelho',
-      img_url: 'https://img.lojasrenner.com.br/item/552440645/large/10.jpg',
-      price: 39.99,
-      size: 'P',
-      stars: 4,
-    },
-  ]);
+
+  if (!params || !params.order_id) {
+    return null;
+  }
+
+  if (!order && isLoading) {
+    // TODO: Display feedback
+    return null;
+  }
+
+  const renderFreight = () => {
+    const price = order ? order.freight : 0;
+
+    return `R$${price.toFixed(2).replace(/\./, ',')}`;
+  };
 
   const renderContent = () => (
     <OrderStatusBottomSheet>
@@ -94,7 +102,7 @@ const OrderStatusCanceled = () => {
       </OrderStatusCanceledTextContainer>
 
       <FlatList
-        data={products}
+        data={order ? order.products : []}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item: product }: { item: IProduct }) => (
           <ProductContainer
@@ -111,12 +119,12 @@ const OrderStatusCanceled = () => {
             <SessionContainer>
               <InformationLine>
                 <InformationLabel>Taxa de entrega</InformationLabel>
-                <Price>R$15,00</Price>
+                <Price>{renderFreight()}</Price>
               </InformationLine>
 
               <InformationLine>
                 <TotalPriceLabel>Total</TotalPriceLabel>
-                <Price>R$15,00</Price>
+                <Price>{renderFreight()}</Price>
               </InformationLine>
             </SessionContainer>
           </>

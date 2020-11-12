@@ -20,10 +20,10 @@ export type StackNavigatorParamList = {
   CreditCardList: undefined;
   AddCreditCard: undefined;
   AddressList: undefined;
-  OrderStatusWaiting: undefined;
-  OrderStatusTrying: undefined;
-  OrderStatusCanceled: undefined;
-  OrderStatusConcluded: undefined;
+  OrderStatusWaiting: { order_id: number };
+  OrderStatusTrying: { order_id: number };
+  OrderStatusCanceled: { order_id: number };
+  OrderStatusConcluded: { order_id: number };
   AddressMap: undefined;
   ProductList: { shop: IShop };
   ProductDetails: { product: IProduct };

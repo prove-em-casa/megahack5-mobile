@@ -31,32 +31,27 @@ import {
 import SelectableProductContainer from '../../components/SelectableProductContainer';
 import { DefaultButtonText } from '../../styles/global';
 import CreditCardContainer from '../../components/CreditCardContainer';
+import { useRoute } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigatorParamList } from '../../routes/StackNavigator';
+import { useCachedFetch } from 'react-cached-fetch';
 const avatarImage = require('../../../assets/img/driver_avatar_2.png');
 
 const OrderStatusTrying = () => {
+  const { params } = useRoute<
+    RouteProp<StackNavigatorParamList, 'OrderStatusTrying'>
+  >();
+
+  const { data: order, isLoading } = useCachedFetch(
+    `/order/${params ? params.order_id : 0}`,
+  );
+
   const [showBackdrop, setShowBackdrop] = useState(false);
   const [selectedProductIds, setSelectedProductIds] = useState<number[]>([]);
   const [productsPrice, setProductsPrice] = useState('0,00');
+
   // TODO: Get from context
   const [selectedCard] = useState<ICreditCard | null>(null);
-  const [products] = useState<IProduct[]>([
-    {
-      id: 1,
-      name: 'Calça flare em viscose lisa com cinto preto',
-      img_url: 'https://img.lojasrenner.com.br/item/551255835/large/10.jpg',
-      price: 39.99,
-      size: 'M',
-      stars: 5,
-    },
-    {
-      id: 2,
-      name: 'Vestido curto evasê em linho com cinto faixa vermelho',
-      img_url: 'https://img.lojasrenner.com.br/item/552440645/large/10.jpg',
-      price: 39.99,
-      size: 'P',
-      stars: 4,
-    },
-  ]);
   const navigator = useNavigation();
 
   useEffect(() => {
@@ -65,7 +60,7 @@ const OrderStatusTrying = () => {
       return;
     }
 
-    const selectedProducts = products.filter((product) =>
+    const selectedProducts = order.products.filter((product) =>
       selectedProductIds.includes(product.id),
     );
 
@@ -75,7 +70,16 @@ const OrderStatusTrying = () => {
     );
 
     setProductsPrice(price.toFixed(2).replace(/\./, ','));
-  }, [selectedProductIds, products]);
+  }, [selectedProductIds, order.products]);
+
+  if (!params || !params.order_id) {
+    return null;
+  }
+
+  if (!order && isLoading) {
+    // TODO: Display feedback
+    return null;
+  }
 
   const handleSelectProduct = (id: number, selected: boolean) => {
     let newSelectedProducts = [...selectedProductIds];
@@ -147,7 +151,7 @@ const OrderStatusTrying = () => {
       <SelectLabel>Selecione as peças que deseja ficar</SelectLabel>
 
       <FlatList
-        data={products}
+        data={order ? order.products : []}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item: product }: { item: IProduct }) => (
           <SelectableProductContainer
