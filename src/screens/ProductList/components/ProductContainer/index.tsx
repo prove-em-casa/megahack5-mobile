@@ -2,15 +2,34 @@ import React from 'react';
 import { Image } from 'react-native';
 import { AvailableText, DescriptionText, PriceText, Product } from './styles';
 
-const camisetaImg = require('../../../../../assets/img/camiseta-1.png');
+// const camisetaImg = require('../../../../../assets/img/camiseta-1.png');
 
-const ProductContainer = () => {
+interface IPropsProduct {
+  product: {
+    id: string;
+    productName: string;
+    url: string;
+    Price: number;
+    Rating: number;
+    P: boolean;
+    M: boolean;
+    G: boolean;
+    GG: boolean;
+  };
+}
+
+const ProductContainer = ({ product }: IPropsProduct) => {
   return (
     <Product>
-      <Image source={camisetaImg} />
+      <Image
+        style={{ width: 100, height: 100 }}
+        source={{
+          uri: product.url,
+        }}
+      />
       <AvailableText>Disponivel</AvailableText>
-      <DescriptionText>Camiseta Preta - Masculina</DescriptionText>
-      <PriceText>R$ 39,90</PriceText>
+      <DescriptionText>{product.productName}</DescriptionText>
+      <PriceText>R$ {product.Price}</PriceText>
     </Product>
   );
 };

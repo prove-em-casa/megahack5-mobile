@@ -6,19 +6,32 @@ import { FlatList } from 'react-native';
 import ProductContainer from './components/ProductContainer';
 import { InputBlock, SearchInput } from './styles';
 import colors from '../../styles/colors';
+import { useCachedFetch } from 'react-cached-fetch';
 
 // import { Container } from './styles';
 
+interface IProduct {
+  id: string;
+  productName: string;
+  url: string;
+  Price: number;
+  Rating: number;
+  P: boolean;
+  M: boolean;
+  G: boolean;
+  GG: boolean;
+}
+
 const ProductList = () => {
-  const data = [
-    { id: '1' },
-    { id: '2' },
-    { id: '3' },
-    { id: '4' },
-    { id: '5' },
-    { id: '6' },
-    { id: '7' },
-  ];
+  const { data, isLoading } = useCachedFetch(`/products?shop_id=${1}`, {
+    initialValue: {},
+  });
+  console.log(data);
+
+  if (!data && isLoading) {
+    console.log(data);
+    return null;
+  }
 
   return (
     <Container>
@@ -47,7 +60,7 @@ const ProductList = () => {
         data={data}
         keyExtractor={(item) => item.id}
         numColumns={2}
-        renderItem={() => <ProductContainer />}
+        renderItem={({ item }) => <ProductContainer product={item} />}
       />
     </Container>
   );
