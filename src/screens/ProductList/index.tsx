@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import { RouteProp } from '@react-navigation/stack';
 import { useCachedFetch } from 'react-cached-fetch';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,7 +15,6 @@ const ProductList = () => {
   const { params } = useRoute<
     RouteProp<StackNavigatorParamList, 'ProductList'>
   >();
-  const navigation = useNavigation();
 
   const shop = params ? params.shop : null;
 
