@@ -1,49 +1,38 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Container, Header, HeaderText } from '../../styles/global';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { FlatList } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/stack';
+import { useCachedFetch } from 'react-cached-fetch';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+import { Container } from '../../styles/global';
 import ProductContainer from './components/ProductContainer';
 import { InputBlock, SearchInput } from './styles';
 import colors from '../../styles/colors';
-import { useCachedFetch } from 'react-cached-fetch';
-
-// import { Container } from './styles';
-
-interface IProduct {
-  id: string;
-  productName: string;
-  url: string;
-  Price: number;
-  Rating: number;
-  P: boolean;
-  M: boolean;
-  G: boolean;
-  GG: boolean;
-}
+import { StackNavigatorParamList } from '../../routes/StackNavigator';
 
 const ProductList = () => {
-  const { data, isLoading } = useCachedFetch(`/products?shop_id=${1}`, {
-    initialValue: {},
-  });
-  console.log(data);
+  const { params } = useRoute<
+    RouteProp<StackNavigatorParamList, 'ProductList'>
+  >();
+  const navigation = useNavigation();
 
-  if (!data && isLoading) {
-    console.log(data);
+  const shop = params ? params.shop : null;
+
+  const { data: products, isLoading } = useCachedFetch(
+    `/products?shop_id=${shop ? shop.id : 0}`,
+    {
+      initialValue: {},
+      dependencies: [!!shop, !!shop.id],
+    },
+  );
+
+  if (!products && isLoading) {
     return null;
   }
 
   return (
     <Container>
-      <Header>
-        <TouchableOpacity>
-          <Icon name="chevron-back" size={26} color="#fff" />
-        </TouchableOpacity>
-        <HeaderText>NOME DA LOJA</HeaderText>
-        <TouchableOpacity>
-          <Icon name="menu-outline" size={26} color="#fff" />
-        </TouchableOpacity>
-      </Header>
       <InputBlock>
         <SearchInput placeholder="O que você procura?" />
         <Icon
@@ -56,11 +45,14 @@ const ProductList = () => {
           color={colors.text_gray}
         />
       </InputBlock>
+
       <FlatList
-        data={data}
-        keyExtractor={(item) => item.id}
+        data={products}
+        keyExtractor={(item) => item.id.toString()}
         numColumns={2}
-        renderItem={({ item }) => <ProductContainer product={item} />}
+        renderItem={({ item: product }: { item: IProduct }) => (
+          <ProductContainer product={product} />
+        )}
       />
     </Container>
   );

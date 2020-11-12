@@ -1,35 +1,29 @@
 import React from 'react';
 import { Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import { AvailableText, DescriptionText, PriceText, Product } from './styles';
 
 // const camisetaImg = require('../../../../../assets/img/camiseta-1.png');
 
 interface IPropsProduct {
-  product: {
-    id: string;
-    productName: string;
-    url: string;
-    Price: number;
-    Rating: number;
-    P: boolean;
-    M: boolean;
-    G: boolean;
-    GG: boolean;
-  };
+  product: IProduct;
 }
 
 const ProductContainer = ({ product }: IPropsProduct) => {
+  const navigation = useNavigation();
+
   return (
-    <Product>
+    <Product onPress={() => navigation.navigate('ProductDetails', { product })}>
       <Image
         style={{ width: 100, height: 100 }}
         source={{
-          uri: product.url,
+          uri: product.imageUrl,
         }}
       />
       <AvailableText>Disponivel</AvailableText>
-      <DescriptionText>{product.productName}</DescriptionText>
-      <PriceText>R$ {product.Price}</PriceText>
+      <DescriptionText>{product.name}</DescriptionText>
+      <PriceText>R$ {product.price}</PriceText>
     </Product>
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Alert, Image, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Image, View } from 'react-native';
 
 import { Description, OpenHours, Shop, Title } from './styles';
 const rennerLogo = require('../../../../../assets/img/renner-logo.png');
@@ -15,8 +16,13 @@ interface IShopProps {
 }
 
 const ShopContainer = ({ shop }: IShopProps) => {
+  const navigation = useNavigation();
+
   return (
-    <Shop>
+    <Shop
+      onPress={() => {
+        navigation.navigate('ProductList', { shop });
+      }}>
       <Image source={rennerLogo} />
       <View>
         <Title>
