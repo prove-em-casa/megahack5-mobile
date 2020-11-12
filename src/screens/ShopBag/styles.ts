@@ -24,7 +24,7 @@ export const SessionTitle = styled.Text`
 `;
 
 export const NavigationLink = styled.Text`
-  padding-bottom: 5px;
+  padding-bottom: 20px;
   font-family: NunitoSemiBold;
   font-size: 12px;
   line-height: 16px;

@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import Icon from 'react-native-vector-icons/Feather';
 
 import colors from '../../styles/colors';
 
@@ -32,7 +31,7 @@ export const ProductImage = styled.Image`
 `;
 
 export const ProductDescriptionContainer = styled.View`
-  width: 250px;
+  width: 216px;
   height: 100%;
 
   justify-content: space-around;
@@ -58,11 +57,4 @@ export const ProductSize = styled.Text`
   color: ${colors.secundary_gray};
   margin-left: 5px;
   margin-top: 4px;
-`;
-
-export const RemoveProductIcon = styled(Icon)`
-  position: absolute;
-  right: 0;
-  margin-right: 20px;
-  color: ${colors.text_gray};
 `;

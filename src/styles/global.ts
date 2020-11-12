@@ -51,6 +51,7 @@ export const DefaultButton = styled.TouchableOpacity`
   border-radius: 18px;
   width: 280px;
   height: 40px;
+  align-self: center;
 
   flex-direction: row;
   align-items: center;

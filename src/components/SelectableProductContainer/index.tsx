@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CheckBox from '@react-native-community/checkbox';
 
 import {
   Product,
@@ -8,7 +9,6 @@ import {
   ProductSize,
   ProductImage,
   ProductDescriptionContainer,
-  RemoveProductIcon,
 } from './styles';
 import { BodyText } from '../../styles/global';
 import Stars from '../Stars';
@@ -19,9 +19,7 @@ interface ProductContainerProps {
   price: number;
   size: string;
   stars: number;
-
-  showRemoveIcon?: boolean;
-  onRemove?: () => void;
+  onSelect: (selected: boolean) => void;
 }
 
 const ProductContainer = ({
@@ -30,11 +28,22 @@ const ProductContainer = ({
   price,
   size,
   stars,
-  showRemoveIcon,
-  onRemove,
+  onSelect,
 }: ProductContainerProps) => {
+  const [selected, setSelected] = useState(false);
+
+  const handleSelect = (newValue: boolean) => {
+    setSelected(newValue);
+    onSelect(newValue);
+  };
+
   return (
     <Product>
+      <CheckBox
+        disabled={false}
+        value={selected}
+        onValueChange={handleSelect}
+      />
       <ProductImage source={{ uri: image }} />
       <ProductDescriptionContainer>
         <ProductTitle numberOfLines={1}>{title}</ProductTitle>
@@ -45,10 +54,6 @@ const ProductContainer = ({
           <ProductSize>{size}</ProductSize>
         </PriceAndSizeContainer>
       </ProductDescriptionContainer>
-
-      {showRemoveIcon && (
-        <RemoveProductIcon name="trash" size={22} onPress={onRemove} />
-      )}
     </Product>
   );
 };

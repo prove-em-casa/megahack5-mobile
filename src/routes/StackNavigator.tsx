@@ -7,6 +7,11 @@ import AddCreditCard from '../screens/AddCreditCard';
 
 import colors from '../styles/colors';
 import TabNavigator from './TabNavigator';
+import OrderStatusWaiting from '../screens/OrderStatusWaiting';
+import OrderStatusCanceled from '../screens/OrderStatusCanceled';
+import OrderStatusTrying from '../screens/OrderStatusTrying';
+import AddressMap from '../screens/AddressMap';
+import OrderStatusConcluded from '../screens/OrderStatusConcluded';
 
 const Stack = createStackNavigator();
 
@@ -29,18 +34,42 @@ const StackNavigator = () => {
       <Stack.Screen
         name="CreditCardList"
         component={CreditCardList}
-        options={{ headerTitle: 'Cartões de crédito' }}
+        options={{ headerTitle: 'CARTÕES DE CRÉDITO' }}
       />
       <Stack.Screen
         name="AddCreditCard"
         component={AddCreditCard}
-        options={{ headerTitle: 'Cadastrar cartão' }}
+        options={{ headerTitle: 'CADASTRAR CARTÃO' }}
       />
       <Stack.Screen
-
         name="AddressList"
         component={AddressList}
-        options={{ headerTitle: 'Endereços de entrega' }}
+        options={{ headerTitle: 'ENDEREÇOS DE ENTREGA' }}
+      />
+      <Stack.Screen
+        name="OrderStatusWaiting"
+        component={OrderStatusWaiting}
+        options={{ headerTitle: 'ACOMPANHE SEU PEDIDO' }}
+      />
+      <Stack.Screen
+        name="OrderStatusCanceled"
+        component={OrderStatusCanceled}
+        options={{ headerTitle: 'PEDIDO N° 940157' }}
+      />
+      <Stack.Screen
+        name="OrderStatusTrying"
+        component={OrderStatusTrying}
+        options={{ headerTitle: 'ACOMPANHE SEU PEDIDO' }}
+      />
+      <Stack.Screen
+        name="OrderStatusConcluded"
+        component={OrderStatusConcluded}
+        options={{ headerTitle: 'DETALHES DO PEDIDO' }}
+      />
+      <Stack.Screen
+        name="AddressMap"
+        component={AddressMap}
+        options={{ headerTitle: 'CADASTRAR ENDEREÇO' }}
       />
     </Stack.Navigator>
   );
