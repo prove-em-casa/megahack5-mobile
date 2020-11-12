@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { AddressesListContainer, AddAddressIcon } from './styles';
 import { DefaultButton, DefaultButtonText } from '../../styles/global';
@@ -24,6 +25,7 @@ const AddressList = () => {
         'Avenida Juscelino Kubitscheck, 111, Vila Madalena, São Paulo, SP',
     },
   ]);
+  const navigation = useNavigation();
 
   const onSelectAddress = (id: number) => {
     const selectedAddress = addresses.find(
@@ -48,12 +50,18 @@ const AddressList = () => {
             handleSelectAddress={() => onSelectAddress(address.id)}
           />
         )}
+        ListFooterComponent={
+          <>
+            <DefaultButton>
+              <AddAddressIcon name="plus" size={25} />
+              <DefaultButtonText
+                onPress={() => navigation.navigate('AddressMap')}>
+                Cadastrar novo endereço
+              </DefaultButtonText>
+            </DefaultButton>
+          </>
+        }
       />
-
-      <DefaultButton>
-        <AddAddressIcon name="plus" size={25} />
-        <DefaultButtonText>Cadastrar novo endereço</DefaultButtonText>
-      </DefaultButton>
     </AddressesListContainer>
   );
 };

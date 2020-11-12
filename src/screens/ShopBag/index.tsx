@@ -55,7 +55,7 @@ const ShopBag = () => {
       id: 1,
       title: 'Calça flare em viscose lisa com cinto preto',
       image: 'https://img.lojasrenner.com.br/item/551255835/large/10.jpg',
-      price: 179.9,
+      price: 39.99,
       size: 'M',
       stars: 5,
     },
@@ -63,7 +63,7 @@ const ShopBag = () => {
       id: 2,
       title: 'Vestido curto evasê em linho com cinto faixa vermelho',
       image: 'https://img.lojasrenner.com.br/item/552440645/large/10.jpg',
-      price: 189.9,
+      price: 39.99,
       size: 'P',
       stars: 4,
     },
@@ -94,72 +94,75 @@ const ShopBag = () => {
               handleSelectAddress={() => navigator.navigate('AddressList')}
             />
           ) : (
-            <NavigationLink onPress={() => navigator.navigate('AddressList')}>
-              Escolher endereço
-            </NavigationLink>
-          )}
+              <NavigationLink onPress={() => navigator.navigate('AddressList')}>
+                Escolher endereço
+              </NavigationLink>
+            )}
         </SessionContainer>
 
         <SessionTitle>Produtos</SessionTitle>
 
-        <SessionContainer>
-          <FlatList
-            data={products}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item: product }: { item: Product }) => (
-              <ProductContainer
-                key={product.id}
-                onRemove={() => handleRemoveProduct(product.id)}
-                title={product.title}
-                image={product.image}
-                price={product.price}
-                size={product.size}
-                stars={product.stars}
-              />
-            )}
-          />
-        </SessionContainer>
-
-        <SessionContainer>
-          <PriceContainer>
-            <SessionTitle>Taxa de entrega</SessionTitle>
-            <DeliveryTax>R$15,00</DeliveryTax>
-          </PriceContainer>
-
-          <PriceContainer>
-            <LargeSessionTitle>Total</LargeSessionTitle>
-            <TotalPrice>R$15,00</TotalPrice>
-          </PriceContainer>
-
-          <DisclaimerText>
-            * O valor das roupas será somado de acordo com as peças que você
-            ficar
-          </DisclaimerText>
-        </SessionContainer>
-
-        <LargeSessionTitle>Pagamento</LargeSessionTitle>
-
-        <SessionContainer>
-          {selectedCard ? (
-            <CreditCardContainer
-              lastDigits={selectedCard.lastDigits}
-              handleSelectCreditCard={() =>
-                navigator.navigate('CreditCardList')
-              }
+        <FlatList
+          data={products}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item: product }: { item: Product }) => (
+            <ProductContainer
+              key={product.id}
+              showRemoveIcon
+              onRemove={() => handleRemoveProduct(product.id)}
+              title={product.title}
+              image={product.image}
+              price={product.price}
+              size={product.size}
+              stars={product.stars}
             />
-          ) : (
-            <NavigationLink
-              onPress={() => navigator.navigate('CreditCardList')}>
-              Escolher cartão
-            </NavigationLink>
           )}
-        </SessionContainer>
+          ListFooterComponent={
+            <>
+              <SessionContainer>
+                <PriceContainer>
+                  <SessionTitle>Taxa de entrega</SessionTitle>
+                  <DeliveryTax>R$15,00</DeliveryTax>
+                </PriceContainer>
 
-        <ButtonContainer>
-          <DefaultButton>
-            <DefaultButtonText>Fazer pedido</DefaultButtonText>
-          </DefaultButton>
-        </ButtonContainer>
+                <PriceContainer>
+                  <LargeSessionTitle>Total</LargeSessionTitle>
+                  <TotalPrice>R$15,00</TotalPrice>
+                </PriceContainer>
+
+                <DisclaimerText>
+                  * O valor das roupas será somado de acordo com as peças que
+                  você ficar
+                </DisclaimerText>
+              </SessionContainer>
+
+              <LargeSessionTitle>Pagamento</LargeSessionTitle>
+
+              <SessionContainer>
+                {selectedCard ? (
+                  <CreditCardContainer
+                    lastDigits={selectedCard.lastDigits}
+                    handleSelectCreditCard={() =>
+                      navigator.navigate('CreditCardList')
+                    }
+                  />
+                ) : (
+                    <NavigationLink
+                      onPress={() => navigator.navigate('CreditCardList')}>
+                      Escolher cartão
+                    </NavigationLink>
+                  )}
+              </SessionContainer>
+
+              <ButtonContainer>
+                <DefaultButton
+                  onPress={() => navigator.navigate('OrderStatusWaiting')}>
+                  <DefaultButtonText>Fazer pedido</DefaultButtonText>
+                </DefaultButton>
+              </ButtonContainer>
+            </>
+          }
+        />
       </ShopBagContainer>
     </Container>
   );
