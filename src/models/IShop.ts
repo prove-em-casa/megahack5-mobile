@@ -1,7 +1,9 @@
 interface IShop {
   id: number;
-  shop: string;
+  name: string;
   open: string;
   close: string;
-  where_is_located: string;
+  img_url: string;
+  lat: number;
+  long: number;
 }

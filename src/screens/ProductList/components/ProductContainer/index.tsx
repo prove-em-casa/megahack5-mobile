@@ -4,8 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import { AvailableText, DescriptionText, PriceText, Product } from './styles';
 
-// const camisetaImg = require('../../../../../assets/img/camiseta-1.png');
-
 interface IPropsProduct {
   product: IProduct;
 }
@@ -18,7 +16,7 @@ const ProductContainer = ({ product }: IPropsProduct) => {
       <Image
         style={{ width: 100, height: 100 }}
         source={{
-          uri: product.imageUrl,
+          uri: product.img_url,
         }}
       />
       <AvailableText>Disponivel</AvailableText>
