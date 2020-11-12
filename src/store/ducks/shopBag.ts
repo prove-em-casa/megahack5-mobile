@@ -1,12 +1,18 @@
 // Action Types
 enum ActionTypes {
   ADD_PRODUCT = 'shopBag/ADD_PRODUCT',
+  REMOVE_PRODUCT = 'shopBag/REMOVE_PRODUCT',
   SELECT_ADDRESS = 'shopBag/SELECT_ADDRESS',
   SELECT_CREDIT_CARD = 'shopBag/SELECT_CREDIT_CARD',
 }
 
 interface IAddProductAction {
   type: ActionTypes.ADD_PRODUCT;
+  payload: { product: IProduct };
+}
+
+interface IRemoveProductAction {
+  type: ActionTypes.REMOVE_PRODUCT;
   payload: { product: IProduct };
 }
 
@@ -22,6 +28,7 @@ interface ISelectCreditCardAction {
 
 type ShopBagActionTypes =
   | IAddProductAction
+  | IRemoveProductAction
   | ISelectAddressAction
   | ISelectCreditCardAction;
 
@@ -48,6 +55,12 @@ export default function reducer(
       products.push(action.payload.product);
       return { ...state, products };
     }
+    case ActionTypes.REMOVE_PRODUCT: {
+      const products = [...state.products].filter(
+        (product) => product.id !== action.payload.product.id,
+      );
+      return { ...state, products };
+    }
     case ActionTypes.SELECT_ADDRESS: {
       return { ...state, address: action.payload.address };
     }
@@ -64,6 +77,13 @@ export default function reducer(
 export function addProductToShopBag(product: IProduct) {
   return {
     type: ActionTypes.ADD_PRODUCT,
+    payload: { product },
+  };
+}
+
+export function removeProductFromShopBag(product: IProduct) {
+  return {
+    type: ActionTypes.REMOVE_PRODUCT,
     payload: { product },
   };
 }

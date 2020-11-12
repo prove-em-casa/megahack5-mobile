@@ -1,14 +1,14 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import SignIn from '../screens/SignIn';
+import Login from '../screens/Login';
 
 const Stack = createStackNavigator();
 
 const UnauthenticatedNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   );
 };

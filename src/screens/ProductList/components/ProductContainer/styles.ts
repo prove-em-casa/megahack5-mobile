@@ -25,7 +25,7 @@ export const AvailableText = styled.Text`
 export const DescriptionText = styled.Text`
   font-family: NunitoSans-Regular;
   color: ${colors.text_gray};
-  font-size: 12;
+  font-size: 12px;
   margin-top: 3px;
   margin-bottom: 10px;
 `;
