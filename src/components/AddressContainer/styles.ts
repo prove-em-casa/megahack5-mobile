@@ -12,13 +12,25 @@ export const Address = styled.TouchableOpacity`
   border-color: #bbbbc4;
   border-width: 1px;
 
+  flex-direction: row;
+  justify-content: center;
+`;
+
+export const AddressDescription = styled.View`
+  width: 270px;
+  margin-left: -15px;
   justify-content: center;
 `;
 
 export const AddressTitle = styled.Text`
-  padding-bottom: 5px;
   font-family: NunitoSemiBold;
   font-size: 12px;
   line-height: 16px;
+  color: ${colors.text_gray};
+`;
+
+export const AddressComplement = styled.Text`
+  font-family: NunitoSans-Regular;
+  font-size: 12px;
   color: ${colors.text_gray};
 `;

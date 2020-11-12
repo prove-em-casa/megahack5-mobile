@@ -24,33 +24,16 @@ import {
 import CreditCardContainer from '../../components/CreditCardContainer';
 import AddressContainer from '../../components/AddressContainer';
 import ProductContainer from '../../components/ProductContainer';
-
-interface Address {
-  id: number;
-  address: string;
-  complement?: string;
-}
-
-interface CreditCard {
-  lastDigits: number;
-}
-
-interface Product {
-  id: number;
-  title: string;
-  image: string;
-  price: number;
-  size: string;
-  stars: number;
-}
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 const ShopBag = () => {
-  // TODO: Get from context
-  const [selectedAddress] = useState<Address | null>(null);
+  const {
+    address: selectedAddress,
+    creditCard: selectedCreditCard,
+  } = useSelector(({ shopBag }: RootState) => shopBag);
 
-  // TODO: Get from context
-  const [selectedCard] = useState<CreditCard | null>(null);
-  const [products, setProducts] = useState<Product[]>([
+  const [products, setProducts] = useState<IProduct[]>([
     {
       id: 1,
       title: 'Calça flare em viscose lisa com cinto preto',
@@ -105,7 +88,7 @@ const ShopBag = () => {
         <FlatList
           data={products}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item: product }: { item: Product }) => (
+          renderItem={({ item: product }: { item: IProduct }) => (
             <ProductContainer
               key={product.id}
               showRemoveIcon
@@ -139,9 +122,9 @@ const ShopBag = () => {
               <LargeSessionTitle>Pagamento</LargeSessionTitle>
 
               <SessionContainer>
-                {selectedCard ? (
+                {selectedCreditCard ? (
                   <CreditCardContainer
-                    lastDigits={selectedCard.lastDigits}
+                    lastDigits={selectedCreditCard.lastDigits}
                     handleSelectCreditCard={() =>
                       navigator.navigate('CreditCardList')
                     }

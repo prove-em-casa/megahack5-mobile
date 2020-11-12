@@ -26,18 +26,9 @@ import ProductContainer from '../../components/ProductContainer';
 
 const avatarImage = require('../../../assets/img/driver_avatar.png');
 
-interface Product {
-  id: number;
-  title: string;
-  image: string;
-  price: number;
-  size: string;
-  stars: number;
-}
-
 const OrderStatusCanceled = () => {
   const [showBackdrop, setShowBackdrop] = useState(false);
-  const [products] = useState<Product[]>([
+  const [products] = useState<IProduct[]>([
     {
       id: 1,
       title: 'Calça flare em viscose lisa com cinto preto',
@@ -105,7 +96,7 @@ const OrderStatusCanceled = () => {
       <FlatList
         data={products}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item: product }: { item: Product }) => (
+        renderItem={({ item: product }: { item: IProduct }) => (
           <ProductContainer
             key={product.id}
             title={product.title}

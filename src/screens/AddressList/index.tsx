@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { AddressesListContainer, AddAddressIcon } from './styles';
 import { DefaultButton, DefaultButtonText } from '../../styles/global';
 import AddressContainer from '../../components/AddressContainer';
-
-interface Address {
-  id: number;
-  address: string;
-  complement?: string;
-}
+import { selectShopBagAddress } from '../../store/ducks/shopBag';
+import { RootState } from '../../store/store';
 
 const AddressList = () => {
-  const [addresses] = useState<Address[]>([
+  const { address: selectedAddress } = useSelector(
+    ({ shopBag }: RootState) => shopBag,
+  );
+  const [addresses] = useState<IAddress[]>([
     {
       id: 1,
       address: 'Avenida Tancredo Neves, 584, Centro, São Paulo, SP',
@@ -26,14 +26,13 @@ const AddressList = () => {
     },
   ]);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const onSelectAddress = (id: number) => {
-    const selectedAddress = addresses.find(
-      (address: Address) => address.id === id,
-    );
+    const address = addresses.find((address: IAddress) => address.id === id);
 
-    if (selectedAddress) {
-      // TODO: Set on context api
+    if (address) {
+      dispatch(selectShopBagAddress(address));
     }
   };
 
@@ -42,12 +41,16 @@ const AddressList = () => {
       <FlatList
         data={addresses}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item: address }: { item: Address }) => (
+        renderItem={({ item: address }: { item: IAddress }) => (
           <AddressContainer
             key={address.id}
             address={address.address}
             complement={address.complement}
             handleSelectAddress={() => onSelectAddress(address.id)}
+            selectable
+            selected={
+              selectedAddress ? selectedAddress.id === address.id : false
+            }
           />
         )}
         ListFooterComponent={

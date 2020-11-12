@@ -3,11 +3,13 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { CachedFetchProvider } from 'react-cached-fetch';
+import { Provider } from 'react-redux';
 import * as Font from 'expo-font';
 
 import Navigator from './src/routes';
 import api from './src/services/api';
 import colors from './src/styles/colors';
+import { store } from './src/store/store';
 
 const App = () => {
   const [loaded] = Font.useFonts({
@@ -22,16 +24,18 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <CachedFetchProvider
-        globalOptions={{
-          fetcher: async (route: string) => {
-            const { data } = await api.get(route);
-            return data;
-          },
-        }}>
-        <StatusBar backgroundColor={colors.main_red} />
-        <Navigator />
-      </CachedFetchProvider>
+      <Provider store={store}>
+        <CachedFetchProvider
+          globalOptions={{
+            fetcher: async (route: string) => {
+              const { data } = await api.get(route);
+              return data;
+            },
+          }}>
+          <StatusBar backgroundColor={colors.main_red} />
+          <Navigator />
+        </CachedFetchProvider>
+      </Provider>
     </NavigationContainer>
   );
 };
