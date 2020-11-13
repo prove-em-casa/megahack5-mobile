@@ -36,6 +36,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigatorParamList } from '../../routes/StackNavigator';
 import { useCachedFetch } from 'react-cached-fetch';
 import { formatPrice } from '../../utils/price';
+import NavigationHeader from '../../components/NavigationHeader';
 
 const avatarImage = require('../../../assets/img/driver_avatar_2.png');
 
@@ -162,6 +163,8 @@ const OrderStatusTrying = () => {
 
   return (
     <OrderStatusContainer>
+      <NavigationHeader title={`PEDIDO Nº ${order.id}`} showGoBackButton />
+
       {showBackdrop && <OrderStatusBackdrop />}
       <OrderStatusTryingTextContainer>
         <OrderStatusText>chegou para provar</OrderStatusText>

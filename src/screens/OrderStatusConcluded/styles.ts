@@ -4,7 +4,10 @@ import colors from '../../styles/colors';
 
 export const OrderStatusConcludedContainer = styled.View`
   flex: 1;
-  margin-top: 30px;
+`;
+
+export const OrderStatusConcludedContainerContent = styled.View`
+  margin-top: 90px;
 `;
 
 export const BottomBorderedSessionContainer = styled.View`
