@@ -1,32 +1,52 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import ShopList from '../screens/ShopList';
 import MyAccount from '../screens/MyAccount';
 import ShopBag from '../screens/ShopBag';
 import OrderList from '../screens/OrderList';
+import colors from '../styles/colors';
+import IconI from 'react-native-vector-icons/Ionicons';
+import IconE from 'react-native-vector-icons/Entypo';
+import IconM from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      activeColor="#fff"
+      barStyle={{ backgroundColor: colors.main_red }}>
       <Tab.Screen
-        name="ShopBag"
-        component={ShopBag}
+        name="ShopList"
         options={{
-          title: 'SACOLA',
+          title: 'Lojas',
+          tabBarIcon: ({ color }) => (
+            <IconI name="home-sharp" color={color} size={24} />
+          ),
         }}
+        component={ShopList}
       />
       <Tab.Screen
         name="OrderList"
         component={OrderList}
         options={{
-          title: 'PEDIDOS',
+          title: 'Meus Pedidos',
+          tabBarIcon: ({ color }) => (
+            <IconE name="shop" color={color} size={24} />
+          ),
         }}
       />
-      <Tab.Screen name="ShopList" component={ShopList} />
-      <Tab.Screen name="MyAccount" component={MyAccount} />
+      <Tab.Screen
+        name="MyAccount"
+        options={{
+          title: 'Minha Conta',
+          tabBarIcon: ({ color }) => (
+            <IconM name="account" color={color} size={24} />
+          ),
+        }}
+        component={MyAccount}
+      />
     </Tab.Navigator>
   );
 };
