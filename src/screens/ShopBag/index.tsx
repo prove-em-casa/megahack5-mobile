@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -27,6 +27,7 @@ import AddressContainer from '../../components/AddressContainer';
 import ProductContainer from '../../components/ProductContainer';
 import { RootState } from '../../store/store';
 import { removeProductFromShopBag } from '../../store/ducks/shopBag';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const ShopBag = () => {
   const {
@@ -45,7 +46,9 @@ const ShopBag = () => {
   return (
     <Container>
       <Header>
-        <View />
+        <TouchableOpacity onPress={navigator.goBack}>
+          <Icon name="chevron-back" size={26} color="#fff" />
+        </TouchableOpacity>
         <HeaderText>SACOLA</HeaderText>
         <View />
       </Header>
@@ -61,10 +64,10 @@ const ShopBag = () => {
               handleSelectAddress={() => navigator.navigate('AddressList')}
             />
           ) : (
-              <NavigationLink onPress={() => navigator.navigate('AddressList')}>
-                Escolher endereço
-              </NavigationLink>
-            )}
+            <NavigationLink onPress={() => navigator.navigate('AddressList')}>
+              Escolher endereço
+            </NavigationLink>
+          )}
         </SessionContainer>
 
         <SessionTitle>Produtos</SessionTitle>
@@ -114,16 +117,16 @@ const ShopBag = () => {
                     }
                   />
                 ) : (
-                    <NavigationLink
-                      onPress={() => navigator.navigate('CreditCardList')}>
-                      Escolher cartão
-                    </NavigationLink>
-                  )}
+                  <NavigationLink
+                    onPress={() => navigator.navigate('CreditCardList')}>
+                    Escolher cartão
+                  </NavigationLink>
+                )}
               </SessionContainer>
 
               <ButtonContainer>
                 <DefaultButton
-                  onPress={() => navigator.navigate('OrderStatusWaiting')}>
+                  onPress={() => navigator.navigate('OrderDetails')}>
                   <DefaultButtonText>Fazer pedido</DefaultButtonText>
                 </DefaultButton>
               </ButtonContainer>
