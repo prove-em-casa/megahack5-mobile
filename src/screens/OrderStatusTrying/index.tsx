@@ -35,20 +35,30 @@ import { useRoute } from '@react-navigation/native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigatorParamList } from '../../routes/StackNavigator';
 import { useCachedFetch } from 'react-cached-fetch';
+import { formatPrice } from '../../utils/price';
+
 const avatarImage = require('../../../assets/img/driver_avatar_2.png');
+
+interface OrderStatus extends IOrder {
+  products: IProduct[];
+}
+interface CachedFetchReturn {
+  data: OrderStatus;
+  isLoading: boolean;
+}
 
 const OrderStatusTrying = () => {
   const { params } = useRoute<
     RouteProp<StackNavigatorParamList, 'OrderStatusTrying'>
   >();
 
-  const { data: order, isLoading } = useCachedFetch(
+  const { data: order, isLoading }: CachedFetchReturn = useCachedFetch(
     `/order/${params ? params.order_id : 0}`,
   );
 
   const [showBackdrop, setShowBackdrop] = useState(false);
   const [selectedProductIds, setSelectedProductIds] = useState<number[]>([]);
-  const [productsPrice, setProductsPrice] = useState('0,00');
+  const [productsPrice, setProductsPrice] = useState(0);
 
   // TODO: Get from context
   const [selectedCard] = useState<ICreditCard | null>(null);
@@ -56,28 +66,37 @@ const OrderStatusTrying = () => {
 
   useEffect(() => {
     if (!selectedProductIds || !selectedProductIds.length) {
-      setProductsPrice('0,00');
+      setProductsPrice(0);
       return;
     }
 
-    const selectedProducts = order.products.filter((product) =>
+    if (!order || !order.products) {
+      return;
+    }
+
+    const selectedProducts = order.products.filter((product: IProduct) =>
       selectedProductIds.includes(product.id),
     );
 
     const price = selectedProducts.reduce(
-      (accumulator, product) => accumulator + product.price,
+      (accumulator: number, product: IProduct) => accumulator + product.price,
       0,
     );
 
-    setProductsPrice(price.toFixed(2).replace(/\./, ','));
-  }, [selectedProductIds, order.products]);
+    setProductsPrice(price);
+  }, [selectedProductIds, order]);
 
   if (!params || !params.order_id) {
     return null;
   }
 
-  if (!order && isLoading) {
-    // TODO: Display feedback
+  if (!order) {
+    if (isLoading) {
+      // TODO: Display loading feedback
+      return null;
+    }
+
+    // TODO: Treat this error by redirecting user or showing feedback
     return null;
   }
 
@@ -151,7 +170,7 @@ const OrderStatusTrying = () => {
       <SelectLabel>Selecione as peças que deseja ficar</SelectLabel>
 
       <FlatList
-        data={order ? order.products : []}
+        data={order.products}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item: product }: { item: IProduct }) => (
           <SelectableProductContainer
@@ -176,20 +195,20 @@ const OrderStatusTrying = () => {
               <InformationLine>
                 <InformationLabel>Roupas</InformationLabel>
                 {selectedProductIds.length !== 0 ? (
-                  <GreenPrice>R${productsPrice}</GreenPrice>
+                  <GreenPrice>{formatPrice(productsPrice)}</GreenPrice>
                 ) : (
-                    <Price>R${productsPrice}</Price>
+                    <Price>{formatPrice(productsPrice)}</Price>
                   )}
               </InformationLine>
 
               <InformationLine>
                 <InformationLabel>Taxa de entrega</InformationLabel>
-                <Price>R$15,00</Price>
+                <Price>{formatPrice(order.freight)}</Price>
               </InformationLine>
 
               <InformationLine>
                 <TotalPriceLabel>Total</TotalPriceLabel>
-                <Price>R$95,00</Price>
+                <Price>{formatPrice(order.freight + productsPrice)}</Price>
               </InformationLine>
 
               <DisclaimerText>
