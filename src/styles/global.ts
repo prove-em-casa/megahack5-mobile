@@ -44,6 +44,7 @@ export const StyledInput = styled.TextInput`
   font-family: NunitoSans-Regular;
   font-size: 12px;
   color: ${colors.secundary_gray};
+  background-color: #fff;
 `;
 
 export const DefaultButton = styled.TouchableOpacity`
@@ -77,14 +78,9 @@ export const FullLineInput = styled.TextInput`
 export const InputLine = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  margin-top: 10px;
+  width: 280px;
 `;
 
-export const HalfLineInput = styled.TextInput`
-  border: 1px solid #d3d3de;
-  border-radius: 4px;
+export const HalfLineInput = styled(StyledInput)`
   width: 48%;
-  height: 40px;
-  background: #fff;
 `;

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, Text } from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { Image, Text, TouchableOpacity } from 'react-native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import { StackNavigatorParamList } from '../../routes/StackNavigator';
 import {
@@ -9,6 +10,8 @@ import {
   DefaultButton,
   DefaultButtonText,
   BodyText,
+  Header,
+  HeaderText,
 } from '../../styles/global';
 import {
   AvailableText,
@@ -27,6 +30,9 @@ const ProductDetails = () => {
   const { params } = useRoute<
     RouteProp<StackNavigatorParamList, 'ProductDetails'>
   >();
+
+  const { goBack, navigate } = useNavigation();
+
   const { products } = useSelector(({ shopBag }: RootState) => shopBag);
   const dispatch = useDispatch();
 
@@ -79,10 +85,25 @@ const ProductDetails = () => {
           <DefaultButtonText>Remover da sacola</DefaultButtonText>
         </DefaultButton>
       ) : (
-          <DefaultButton onPress={() => handleAddProduct()}>
-            <DefaultButtonText>Adicionar à sacola</DefaultButtonText>
-          </DefaultButton>
-        )}
+        <DefaultButton onPress={() => handleAddProduct()}>
+          <DefaultButtonText>Adicionar à sacola</DefaultButtonText>
+        </DefaultButton>
+      )}
+      <DefaultButton
+        style={{ marginTop: 20 }}
+        onPress={() => navigate('ShopBag')}>
+        <DefaultButtonText>Ver sacola</DefaultButtonText>
+      </DefaultButton>
+
+      <Header>
+        <TouchableOpacity onPress={goBack}>
+          <Icon name="chevron-back" size={26} color="#fff" />
+        </TouchableOpacity>
+        <HeaderText>DETALHES</HeaderText>
+        <TouchableOpacity onPress={() => navigate('Home')}>
+          <Icon name="close-outline" size={26} color="#fff" />
+        </TouchableOpacity>
+      </Header>
     </Container>
   );
 };

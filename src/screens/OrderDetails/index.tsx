@@ -20,10 +20,13 @@ import {
 } from './styles';
 import OrderedProduct from './components/OrderedProduct';
 import colors from '../../styles/colors';
+import { useNavigation } from '@react-navigation/native';
 
 const avatarImg = require('../../../assets/img/avatar-entregador.png');
 
 const OrderDetails = () => {
+  const { navigate } = useNavigation();
+
   return (
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -83,15 +86,13 @@ const OrderDetails = () => {
         </OrderContainer>
       </ScrollView>
 
-      <FinishButton>
+      <FinishButton onPress={() => navigate('Home')}>
         <DefaultButtonText>Concluir</DefaultButtonText>
       </FinishButton>
 
       <Header>
-        <TouchableOpacity>
-          <Icon name="close-outline" size={26} color="#fff" />
-        </TouchableOpacity>
-        <HeaderText style={{ marginRight: 20 }}>RESUMO DO PEDIDO</HeaderText>
+        <View />
+        <HeaderText>RESUMO DO PEDIDO</HeaderText>
         <View />
       </Header>
     </Container>

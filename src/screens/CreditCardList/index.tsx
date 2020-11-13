@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { CreditCardsListContainer, AddCreditCardIcon } from './styles';
-import { DefaultButton, DefaultButtonText } from '../../styles/global';
+import {
+  Container,
+  DefaultButton,
+  DefaultButtonText,
+  Header,
+  HeaderText,
+} from '../../styles/global';
 import CardContainer from '../../components/CreditCardContainer';
 import { RootState } from '../../store/store';
 import { selectShopBagCreditCard } from '../../store/ducks/shopBag';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const CreditCardList = () => {
   const { creditCard: selectedCreditCard } = useSelector(
@@ -35,8 +42,9 @@ const CreditCardList = () => {
   };
 
   return (
-    <CreditCardsListContainer>
+    <Container>
       <FlatList
+        style={{ marginTop: 100 }}
         data={creditCards}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item: card }: { item: ICreditCard }) => (
@@ -64,7 +72,14 @@ const CreditCardList = () => {
           </>
         }
       />
-    </CreditCardsListContainer>
+      <Header>
+        <TouchableOpacity onPress={navigator.goBack}>
+          <Icon name="chevron-back" size={26} color="#fff" />
+        </TouchableOpacity>
+        <HeaderText>SELECIONE UM CARTÃO</HeaderText>
+        <View />
+      </Header>
+    </Container>
   );
 };
 

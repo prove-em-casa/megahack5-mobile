@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AddressesListContainer, AddAddressIcon } from './styles';
-import { DefaultButton, DefaultButtonText } from '../../styles/global';
+import {
+  DefaultButton,
+  DefaultButtonText,
+  HeaderText,
+  Header,
+  Container,
+} from '../../styles/global';
 import AddressContainer from '../../components/AddressContainer';
 import { selectShopBagAddress } from '../../store/ducks/shopBag';
 import { RootState } from '../../store/store';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const AddressList = () => {
   const { address: selectedAddress } = useSelector(
@@ -37,8 +44,9 @@ const AddressList = () => {
   };
 
   return (
-    <AddressesListContainer>
+    <Container>
       <FlatList
+        style={{ marginTop: 100 }}
         data={addresses}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item: address }: { item: IAddress }) => (
@@ -65,7 +73,14 @@ const AddressList = () => {
           </>
         }
       />
-    </AddressesListContainer>
+      <Header>
+        <TouchableOpacity onPress={navigation.goBack}>
+          <Icon name="chevron-back" size={26} color="#fff" />
+        </TouchableOpacity>
+        <HeaderText>ESCOLHA UM ENDEREÇO</HeaderText>
+        <View />
+      </Header>
+    </Container>
   );
 };
 

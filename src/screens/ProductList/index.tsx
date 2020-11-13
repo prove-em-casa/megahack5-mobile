@@ -1,11 +1,12 @@
 import React from 'react';
-import { FlatList } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { RouteProp } from '@react-navigation/stack';
 import { useCachedFetch } from 'react-cached-fetch';
 import Icon from 'react-native-vector-icons/Ionicons';
+import IconF from 'react-native-vector-icons/FontAwesome5';
 
-import { Container } from '../../styles/global';
+import { Container, Header, HeaderText } from '../../styles/global';
 import ProductContainer from './components/ProductContainer';
 import { InputBlock, SearchInput } from './styles';
 import colors from '../../styles/colors';
@@ -15,6 +16,8 @@ const ProductList = () => {
   const { params } = useRoute<
     RouteProp<StackNavigatorParamList, 'ProductList'>
   >();
+
+  const { goBack, navigate } = useNavigation();
 
   const shop = params ? params.shop : null;
 
@@ -53,6 +56,15 @@ const ProductList = () => {
           <ProductContainer product={product} />
         )}
       />
+      <Header>
+        <TouchableOpacity onPress={goBack}>
+          <Icon name="chevron-back" size={26} color="#fff" />
+        </TouchableOpacity>
+        <HeaderText>{shop.name.toUpperCase()}</HeaderText>
+        <TouchableOpacity onPress={() => navigate('ShopBag')}>
+          <IconF name="shopping-cart" size={22} color="#fff" />
+        </TouchableOpacity>
+      </Header>
     </Container>
   );
 };

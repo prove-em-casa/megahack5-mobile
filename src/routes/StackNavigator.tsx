@@ -14,12 +14,17 @@ import AddressMap from '../screens/AddressMap';
 import OrderStatusConcluded from '../screens/OrderStatusConcluded';
 import ProductList from '../screens/ProductList';
 import ProductDetails from '../screens/ProductDetails';
+import { Header, HeaderText } from '../styles/global';
+import ShopBag from '../screens/ShopBag';
+import OrderDetails from '../screens/OrderDetails';
 
 export type StackNavigatorParamList = {
   Home: undefined;
+  ShopBag: undefined;
   CreditCardList: undefined;
   AddCreditCard: undefined;
   AddressList: undefined;
+  OrderDetails: undefined;
   OrderStatusWaiting: { order_id: number };
   OrderStatusTrying: { order_id: number };
   OrderStatusCanceled: { order_id: number };
@@ -35,68 +40,27 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: {
-          backgroundColor: colors.main_red,
-        },
-        headerTintColor: colors.background_white,
+        headerShown: false,
       }}>
-      <Stack.Screen
-        name="Home"
-        component={TabNavigator}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="CreditCardList"
-        component={CreditCardList}
-        options={{ headerTitle: 'CARTÕES DE CRÉDITO' }}
-      />
-      <Stack.Screen
-        name="AddCreditCard"
-        component={AddCreditCard}
-        options={{ headerTitle: 'CADASTRAR CARTÃO' }}
-      />
-      <Stack.Screen
-        name="AddressList"
-        component={AddressList}
-        options={{ headerTitle: 'ENDEREÇOS DE ENTREGA' }}
-      />
-      <Stack.Screen
-        name="OrderStatusWaiting"
-        component={OrderStatusWaiting}
-        options={{ headerTitle: 'ACOMPANHE SEU PEDIDO' }}
-      />
+      <Stack.Screen name="Home" component={TabNavigator} />
+      <Stack.Screen name="CreditCardList" component={CreditCardList} />
+      <Stack.Screen name="ShopBag" component={ShopBag} />
+      <Stack.Screen name="AddCreditCard" component={AddCreditCard} />
+      <Stack.Screen name="AddressList" component={AddressList} />
+      <Stack.Screen name="OrderStatusWaiting" component={OrderStatusWaiting} />
+      <Stack.Screen name="OrderDetails" component={OrderDetails} />
       <Stack.Screen
         name="OrderStatusCanceled"
         component={OrderStatusCanceled}
-        options={{ headerTitle: 'PEDIDO N° 940157' }}
       />
-      <Stack.Screen
-        name="OrderStatusTrying"
-        component={OrderStatusTrying}
-        options={{ headerTitle: 'ACOMPANHE SEU PEDIDO' }}
-      />
+      <Stack.Screen name="OrderStatusTrying" component={OrderStatusTrying} />
       <Stack.Screen
         name="OrderStatusConcluded"
         component={OrderStatusConcluded}
-        options={{ headerTitle: 'DETALHES DO PEDIDO' }}
       />
-      <Stack.Screen
-        name="AddressMap"
-        component={AddressMap}
-        options={{ headerTitle: 'CADASTRAR ENDEREÇO' }}
-      />
-      <Stack.Screen
-        name="ProductList"
-        component={ProductList}
-        options={{ headerTitle: 'NOME DA LOJA' }}
-      />
-      <Stack.Screen
-        name="ProductDetails"
-        component={ProductDetails}
-        options={{ headerTitle: 'DETALHES DO PRODUTO' }}
-      />
+      <Stack.Screen name="AddressMap" component={AddressMap} />
+      <Stack.Screen name="ProductList" component={ProductList} />
+      <Stack.Screen name="ProductDetails" component={ProductDetails} />
     </Stack.Navigator>
   );
 };

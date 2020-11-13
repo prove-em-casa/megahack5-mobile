@@ -27,7 +27,7 @@ export const PriceText = styled.Text`
 export const SizeBlock = styled.View`
   margin-top: 32px;
   flex-direction: row;
-  margin-bottom: 135px;
+  margin-bottom: 100px;
 `;
 
 export const SizesContainer = styled.View`

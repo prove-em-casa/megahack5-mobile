@@ -5,8 +5,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MapView from 'react-native-maps';
 import colors from '../../styles/colors';
 import { InputBlock, SearchIcon, SearchInput } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 const AddressMap = () => {
+  const { goBack, navigate } = useNavigation();
+
   return (
     <Container>
       <MapView
@@ -28,11 +31,13 @@ const AddressMap = () => {
         </SearchIcon>
       </InputBlock>
       <Header>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={goBack}>
+          <Icon name="chevron-back" size={26} color="#fff" />
+        </TouchableOpacity>
+        <HeaderText>SELECIONE O LOCAL</HeaderText>
+        <TouchableOpacity onPress={() => navigate('ShopBag')}>
           <Icon name="close-outline" size={26} color="#fff" />
         </TouchableOpacity>
-        <HeaderText style={{ marginRight: 20 }}>SELECIONE O LOCAL</HeaderText>
-        <View />
       </Header>
     </Container>
   );

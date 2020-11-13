@@ -3,8 +3,7 @@ import { DefaultButton } from '../../styles/global';
 
 export const AddCreditCardContainer = styled.View`
   flex: 1;
-  padding: 15px;
-
+  justify-content: center;
   align-items: center;
 `;
 
