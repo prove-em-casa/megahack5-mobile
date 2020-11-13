@@ -1,10 +1,17 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
+import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import {
   FullLineInput,
   InputLine,
   HalfLineInput,
   DefaultButtonText,
+  Header,
+  HeaderText,
+  StyledInput,
+  Container,
 } from '../../styles/global';
 import { AddCreditCardContainer, AddCreditCardButton } from './styles';
 
@@ -15,13 +22,15 @@ const AddCreditCard = () => {
   const [cardHolder, setCardHolder] = useState('');
   const [cpf, setCpf] = useState('');
 
+  const { goBack, navigate } = useNavigation();
+
   const handleSaveCreditCard = () => {
     // TODO: Validate inputs and store on context api
   };
 
   return (
-    <AddCreditCardContainer>
-      <FullLineInput
+    <Container>
+      <StyledInput
         placeholder="Número do cartão"
         value={cardNumber}
         onChangeText={(text) => setCardNumber(text)}
@@ -41,13 +50,13 @@ const AddCreditCard = () => {
         />
       </InputLine>
 
-      <FullLineInput
+      <StyledInput
         placeholder="Nome do titular"
         value={cardHolder}
         onChangeText={(text) => setCardHolder(text)}
       />
 
-      <FullLineInput
+      <StyledInput
         placeholder="CPF"
         value={cpf}
         onChangeText={(text) => setCpf(text)}
@@ -56,7 +65,16 @@ const AddCreditCard = () => {
       <AddCreditCardButton onPress={handleSaveCreditCard}>
         <DefaultButtonText>Salvar cartão</DefaultButtonText>
       </AddCreditCardButton>
-    </AddCreditCardContainer>
+      <Header>
+        <TouchableOpacity onPress={goBack}>
+          <Icon name="chevron-back" size={26} color="#fff" />
+        </TouchableOpacity>
+        <HeaderText>SELECIONE O LOCAL</HeaderText>
+        <TouchableOpacity onPress={() => navigate('ShopBag')}>
+          <Icon name="close-outline" size={26} color="#fff" />
+        </TouchableOpacity>
+      </Header>
+    </Container>
   );
 };
 
