@@ -4,4 +4,5 @@ interface IOrder {
   shop_img_url: string;
   status: 'waiting' | 'trying' | 'canceled' | 'concluded';
   date: Date;
+  freight: number;
 }

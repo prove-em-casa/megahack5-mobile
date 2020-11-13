@@ -5,6 +5,7 @@ import { DefaultButton } from '../../styles/global';
 
 export const OrderStatusContainer = styled.View`
   flex: 1;
+  padding-top: 30px;
 `;
 
 export const OrderStatusBackdrop = styled.View`
