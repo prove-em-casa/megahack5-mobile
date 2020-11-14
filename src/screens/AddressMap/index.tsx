@@ -80,8 +80,6 @@ const AddressMap = () => {
         neighboorhood,
       ] = response.results[0].address_components;
 
-      console.log(response.results);
-
       setSelectedAddress(
         `${street.long_name}, ${number.long_name} - ${neighboorhood.long_name}`,
       );
