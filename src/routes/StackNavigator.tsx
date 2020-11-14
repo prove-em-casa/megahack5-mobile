@@ -24,7 +24,7 @@ export type StackNavigatorParamList = {
   CreditCardList: undefined;
   AddCreditCard: undefined;
   AddressList: undefined;
-  OrderDetails: undefined;
+  OrderDetails: { products: IProduct[]; freight: number };
   OrderStatusWaiting: { order_id: number };
   OrderStatusTrying: { order_id: number };
   OrderStatusCanceled: { order_id: number };
