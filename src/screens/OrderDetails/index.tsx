@@ -24,7 +24,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigatorParamList } from '../../routes/StackNavigator';
 import { formatPrice } from '../../utils/price';
 
-const avatarImg = require('../../../assets/img/avatar-entregador.png');
+const avatarImg = require('../../../assets/img/driver_avatar.png');
 
 const OrderDetails = () => {
   const [date, setDate] = useState<string>();
@@ -41,10 +41,9 @@ const OrderDetails = () => {
   }, []);
 
   useEffect(() => {
-    const prices = products.map((product) => product.price);
-    const total = prices.reduce((a, b) => a + b);
+    const total = products.reduce((a, product) => a + Number(product.price), 0);
     setPrice(total);
-  }, []);
+  }, [products]);
 
   return (
     <Container>
@@ -62,7 +61,7 @@ const OrderDetails = () => {
           <InformationBlock>
             <AvatarContainer>
               <Avatar source={avatarImg} />
-              <BodyText style={{ marginLeft: 10 }}>Fausto Princeso</BodyText>
+              <BodyText style={{ marginLeft: 10 }}>Shanarai</BodyText>
             </AvatarContainer>
             <View>
               <DetailText>ABC1234</DetailText>
@@ -76,16 +75,14 @@ const OrderDetails = () => {
             Seu pedido
           </BodyText>
           {products.map((product) => (
-            <OrderedProduct product={product} />
+            <OrderedProduct key={product.id} product={product} />
           ))}
         </OrderContainer>
 
         <OrderContainer>
           <InformationBlock>
             <BodyText>Roupas</BodyText>
-            <DetailText>
-              {products.map(({ price }) => formatPrice(Number(price)))}
-            </DetailText>
+            <DetailText>{formatPrice(Number(price))}</DetailText>
           </InformationBlock>
           <InformationBlock>
             <BodyText>Taxa de Entrega</BodyText>

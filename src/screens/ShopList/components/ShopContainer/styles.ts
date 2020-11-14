@@ -7,8 +7,9 @@ export const Shop = styled.TouchableOpacity`
   border-width: 1px;
   width: 322px;
   height: 90px;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
+  padding: 0 20px;
   flex-direction: row;
   margin-bottom: 12px;
 `;
@@ -18,6 +19,10 @@ export const Title = styled.Text`
   font-size: 14px;
   /* padding: 5px 0; */
   color: ${colors.text_gray};
+`;
+
+export const DetailsBlock = styled.View`
+  margin-left: 20px;
 `;
 
 export const Description = styled.Text`
