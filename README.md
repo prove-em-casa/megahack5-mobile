@@ -4,7 +4,7 @@
 &nbsp;
 
 ## Projeto :computer: 
-<p><strong>Prove em casa</strong> é um aplicativo no qual o usuário irá poder provar roupas sem sair de casa. O driver fará entrega e você só ficará com as roupas que quiser podendo solicitar que um driver venha buscar as não selecionadas .</p>
+<p><strong>Prove em casa</strong> é um aplicativo no qual o usuário irá poder provar roupas sem sair de casa. O driver fará entrega e você só ficará com as roupas que quiser, podendo assim solicitar que um driver venha buscar as não selecionadas.</p>
 
  * Equipe envolvida: [Thaian](https://github.com/thcarvalho), [Mello](https://github.com/MelloTonio), [Itamar](https://github.com/ItamarJoire), [Mateus](http://linkedin.com/in/mateus-mezzomo-591466b1) e [Vítor](https://github.com/vitorbertolucci);
  
