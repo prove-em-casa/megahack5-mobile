@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useCachedFetch } from 'react-cached-fetch';
@@ -16,24 +16,30 @@ import {
 import AddressContainer from '../../components/AddressContainer';
 import { selectShopBagAddress } from '../../store/ducks/shopBag';
 import { RootState } from '../../store/store';
+import api from '../../services/api';
 
 const AddressList = () => {
   const { address: selectedAddress } = useSelector(
     ({ shopBag }: RootState) => shopBag,
   );
-  const { data: addresses, isLoading } = useCachedFetch('address');
+  const [addresses, setAddresses] = useState<IAddress[]>([]);
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  if (!addresses) {
-    if (isLoading) {
-      // TODO: Display loading feedback
-      return null;
-    }
+  useEffect(() => {
+    api.get('/address').then((response) => {
+      setAddresses(response.data);
+    });
+  }, []);
 
-    // TODO: Treat this error by redirecting user or showing feedback
-    return null;
-  }
+  useFocusEffect(
+    useCallback(() => {
+      api.get('/address').then((response) => {
+        setAddresses(response.data);
+      });
+    }, []),
+  );
 
   const onSelectAddress = (id: number) => {
     const address = addresses.find((address: IAddress) => address.id === id);
