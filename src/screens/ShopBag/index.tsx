@@ -29,6 +29,7 @@ import { RootState } from '../../store/store';
 import { removeProductFromShopBag } from '../../store/ducks/shopBag';
 import Icon from 'react-native-vector-icons/Ionicons';
 import api from '../../services/api';
+import { formatPrice } from '../../utils/price';
 
 const ShopBag = () => {
   const [freight, setFreight] = useState<number>(15);
@@ -105,7 +106,7 @@ const ShopBag = () => {
               <SessionContainer>
                 <PriceContainer>
                   <SessionTitle>Taxa de entrega</SessionTitle>
-                  <DeliveryTax>R${freight}</DeliveryTax>
+                  <DeliveryTax>{formatPrice(freight)}</DeliveryTax>
                 </PriceContainer>
 
                 <PriceContainer>

@@ -3,6 +3,7 @@ import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { AvailableText, DescriptionText, PriceText, Product } from './styles';
+import { formatPrice } from '../../../../utils/price';
 
 interface IPropsProduct {
   product: IProduct;
@@ -21,7 +22,7 @@ const ProductContainer = ({ product }: IPropsProduct) => {
       />
       <AvailableText>Disponivel</AvailableText>
       <DescriptionText>{product.name}</DescriptionText>
-      <PriceText>R$ {product.price}</PriceText>
+      <PriceText>{formatPrice(Number(product.price))}</PriceText>
     </Product>
   );
 };

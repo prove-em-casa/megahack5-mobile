@@ -25,6 +25,7 @@ import {
   addProductToShopBag,
   removeProductFromShopBag,
 } from '../../store/ducks/shopBag';
+import { formatPrice } from '../../utils/price';
 
 const ProductDetails = () => {
   const { params } = useRoute<
@@ -62,7 +63,7 @@ const ProductDetails = () => {
         />
         <AvailableText>Disponivel</AvailableText>
         <BodyText>{product.name}</BodyText>
-        <PriceText>{product.price}</PriceText>
+        <PriceText>{formatPrice(Number(product.price))}</PriceText>
       </DetailsContainer>
 
       <SizeBlock>

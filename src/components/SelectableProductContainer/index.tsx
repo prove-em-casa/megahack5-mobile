@@ -12,6 +12,7 @@ import {
 } from './styles';
 import { BodyText } from '../../styles/global';
 import Stars from '../Stars';
+import { formatPrice } from '../../utils/price';
 
 interface ProductContainerProps {
   name: string;
@@ -49,7 +50,7 @@ const ProductContainer = ({
         <ProductTitle numberOfLines={1}>{name}</ProductTitle>
         <Stars stars={stars} />
         <PriceAndSizeContainer>
-          <ProductPrice>{price}</ProductPrice>
+          <ProductPrice>{formatPrice(price)}</ProductPrice>
           <BodyText>Tamanho</BodyText>
           <ProductSize>{size}</ProductSize>
         </PriceAndSizeContainer>
