@@ -53,9 +53,10 @@ const ShopBag = () => {
       shop_id: products[0].shop_id,
       freight,
       status: 'waiting',
+      cred_id: selectedCreditCard?.id,
       address: selectedAddress?.address,
     });
-    navigator.navigate('OrderDetails');
+    navigator.navigate('OrderDetails', { products, freight });
   }
 
   return (
@@ -134,7 +135,7 @@ const ShopBag = () => {
               <SessionContainer>
                 {selectedCreditCard ? (
                   <CreditCardContainer
-                    lastDigits={selectedCreditCard.lastDigits}
+                    lastDigits={selectedCreditCard.last_digits}
                     handleSelectCreditCard={() =>
                       navigator.navigate('CreditCardList')
                     }
