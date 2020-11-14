@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,23 +15,23 @@ import CardContainer from '../../components/CreditCardContainer';
 import { RootState } from '../../store/store';
 import { selectShopBagCreditCard } from '../../store/ducks/shopBag';
 import Icon from 'react-native-vector-icons/Ionicons';
+import api from '../../services/api';
 
 const CreditCardList = () => {
   const { creditCard: selectedCreditCard } = useSelector(
     ({ shopBag }: RootState) => shopBag,
   );
-  const [creditCards] = useState<ICreditCard[]>([
-    {
-      id: 1,
-      lastDigits: 1234,
-    },
-    {
-      id: 2,
-      lastDigits: 4567,
-    },
-  ]);
+  const [creditCards, setCreditCards] = useState<ICreditCard[]>([]);
   const navigator = useNavigation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    api.get('/creditCard').then((response) => {
+      console.log(response.data);
+
+      setCreditCards(response.data);
+    });
+  }, []);
 
   const onSelectCreditCard = (id: number) => {
     const creditCard = creditCards.find((card: ICreditCard) => card.id === id);
@@ -50,7 +50,7 @@ const CreditCardList = () => {
         renderItem={({ item: card }: { item: ICreditCard }) => (
           <CardContainer
             key={card.id}
-            lastDigits={card.lastDigits}
+            lastDigits={card.last_digits}
             handleSelectCreditCard={() => onSelectCreditCard(card.id)}
             selectable
             selected={
