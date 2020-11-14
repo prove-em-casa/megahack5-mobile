@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { CachedFetchProvider } from 'react-cached-fetch';
@@ -11,6 +11,9 @@ import Navigator from './src/routes';
 import api from './src/services/api';
 import colors from './src/styles/colors';
 import { store, persistor } from './src/store/store';
+import SplashScreen from 'react-native-splash-screen';
+
+// SplashScreen.show();
 
 const App = () => {
   const [loaded] = Font.useFonts({
@@ -18,6 +21,10 @@ const App = () => {
     NunitoSemiBold: require('./assets/fonts/NunitoSans-SemiBold.ttf'),
     NunitoExtraBold: require('./assets/fonts/NunitoSans-ExtraBold.ttf'),
   });
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   if (!loaded) {
     return null;
