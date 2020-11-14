@@ -1,7 +1,8 @@
+import { Animated, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import colors from '../../styles/colors';
 
-export const InputBlock = styled.View`
+export const InputBlock = styled(Animated.View)`
   position: absolute;
   bottom: 20px;
   flex-direction: row-reverse;
@@ -26,4 +27,20 @@ export const SearchInput = styled.TextInput`
 export const SearchIcon = styled.TouchableOpacity`
   position: absolute;
   left: 15px;
+`;
+
+export const ResultContainer = styled(Animated.View)`
+  background-color: ${colors.main_red};
+  width: ${Dimensions.get('window').width + 'px'};
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -50px;
+`;
+
+export const ResultText = styled.Text`
+  color: #fff;
+  font-family: NunitoSans-LightBold;
+  font-size: 14px;
 `;
