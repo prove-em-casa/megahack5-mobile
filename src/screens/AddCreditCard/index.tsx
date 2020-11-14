@@ -1,5 +1,8 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
+import { ToastAndroid } from 'react-native';
 import NavigationHeader from '../../components/NavigationHeader';
+import api from '../../services/api';
 
 import {
   InputLine,
@@ -17,8 +20,31 @@ const AddCreditCard = () => {
   const [cardHolder, setCardHolder] = useState('');
   const [cpf, setCpf] = useState('');
 
+  const { goBack } = useNavigation();
+
   const handleSaveCreditCard = () => {
-    // TODO: Validate inputs and store on context api
+    const last_digits = cardNumber.toString().substring(cardNumber.length - 4);
+
+    api
+      .post('/creditCard/create', {
+        card_number: cardNumber,
+        last_digits,
+        CVV: cvv,
+        validity_date: validity,
+        CPF: cpf,
+        owner_name: cardHolder,
+      })
+      .then(() => {
+        ToastAndroid.show('Novo cartão cadastrado!', ToastAndroid.SHORT);
+        goBack();
+      })
+      .catch((error) => {
+        console.log(error);
+        ToastAndroid.show(
+          'Não foi possivel cadastrar esse cartão',
+          ToastAndroid.SHORT,
+        );
+      });
   };
 
   return (
