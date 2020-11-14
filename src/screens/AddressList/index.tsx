@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,25 +15,21 @@ import AddressContainer from '../../components/AddressContainer';
 import { selectShopBagAddress } from '../../store/ducks/shopBag';
 import { RootState } from '../../store/store';
 import Icon from 'react-native-vector-icons/Ionicons';
+import api from '../../services/api';
 
 const AddressList = () => {
   const { address: selectedAddress } = useSelector(
     ({ shopBag }: RootState) => shopBag,
   );
-  const [addresses] = useState<IAddress[]>([
-    {
-      id: 1,
-      address: 'Avenida Tancredo Neves, 584, Centro, São Paulo, SP',
-      complement: 'ap 33, bloco 1',
-    },
-    {
-      id: 2,
-      address:
-        'Avenida Juscelino Kubitscheck, 111, Vila Madalena, São Paulo, SP',
-    },
-  ]);
+  const [addresses, setAddresses] = useState<IAddress[]>([]);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    api.get('/address').then((response) => {
+      setAddresses(response.data);
+    });
+  });
 
   const onSelectAddress = (id: number) => {
     const address = addresses.find((address: IAddress) => address.id === id);
