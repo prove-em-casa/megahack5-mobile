@@ -5,4 +5,5 @@ interface IProduct {
   price: number;
   size: string;
   stars: number;
+  shop_id: number;
 }
