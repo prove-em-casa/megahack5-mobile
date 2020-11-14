@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -30,6 +30,7 @@ import { removeProductFromShopBag } from '../../store/ducks/shopBag';
 import Icon from 'react-native-vector-icons/Ionicons';
 import api from '../../services/api';
 import { formatPrice } from '../../utils/price';
+import colors from '../../styles/colors';
 
 const ShopBag = () => {
   const [freight, setFreight] = useState<number>(15);
@@ -106,12 +107,20 @@ const ShopBag = () => {
               <SessionContainer>
                 <PriceContainer>
                   <SessionTitle>Taxa de entrega</SessionTitle>
-                  <DeliveryTax>{formatPrice(freight)}</DeliveryTax>
+                  <DeliveryTax>
+                    {products.length === 0
+                      ? formatPrice(0)
+                      : formatPrice(freight)}
+                  </DeliveryTax>
                 </PriceContainer>
 
                 <PriceContainer>
                   <LargeSessionTitle>Total</LargeSessionTitle>
-                  <TotalPrice>R$15,00</TotalPrice>
+                  <TotalPrice>
+                    {products.length === 0
+                      ? formatPrice(0)
+                      : formatPrice(freight)}
+                  </TotalPrice>
                 </PriceContainer>
 
                 <DisclaimerText>
@@ -139,7 +148,23 @@ const ShopBag = () => {
               </SessionContainer>
 
               <ButtonContainer>
-                <DefaultButton onPress={registerOrder}>
+                <DefaultButton
+                  disabled={
+                    products.length === 0 ||
+                    selectedCreditCard === null ||
+                    selectedAddress === null
+                      ? true
+                      : false
+                  }
+                  style={{
+                    backgroundColor:
+                      products.length === 0 ||
+                      selectedCreditCard === null ||
+                      selectedAddress === null
+                        ? 'rgba(0,0,0,0.1)'
+                        : colors.main_red,
+                  }}
+                  onPress={registerOrder}>
                   <DefaultButtonText>Fazer pedido</DefaultButtonText>
                 </DefaultButton>
               </ButtonContainer>
