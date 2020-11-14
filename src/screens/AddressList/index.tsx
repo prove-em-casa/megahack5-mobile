@@ -29,7 +29,7 @@ const AddressList = () => {
     api.get('/address').then((response) => {
       setAddresses(response.data);
     });
-  });
+  }, []);
 
   const onSelectAddress = (id: number) => {
     const address = addresses.find((address: IAddress) => address.id === id);
