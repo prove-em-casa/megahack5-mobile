@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -28,8 +28,10 @@ import ProductContainer from '../../components/ProductContainer';
 import { RootState } from '../../store/store';
 import { removeProductFromShopBag } from '../../store/ducks/shopBag';
 import Icon from 'react-native-vector-icons/Ionicons';
+import api from '../../services/api';
 
 const ShopBag = () => {
+  const [freight, setFreight] = useState<number>(15);
   const {
     address: selectedAddress,
     creditCard: selectedCreditCard,
@@ -42,6 +44,17 @@ const ShopBag = () => {
   const handleRemoveProduct = (product: IProduct) => {
     dispatch(removeProductFromShopBag(product));
   };
+
+  async function registerOrder() {
+    api.post('/order', {
+      productList: products,
+      shop_id: products[0].shop_id,
+      freight,
+      status: 'waiting',
+      address: selectedAddress?.address,
+    });
+    navigator.navigate('OrderDetails');
+  }
 
   return (
     <Container>
@@ -92,7 +105,7 @@ const ShopBag = () => {
               <SessionContainer>
                 <PriceContainer>
                   <SessionTitle>Taxa de entrega</SessionTitle>
-                  <DeliveryTax>R$15,00</DeliveryTax>
+                  <DeliveryTax>R${freight}</DeliveryTax>
                 </PriceContainer>
 
                 <PriceContainer>
@@ -125,8 +138,7 @@ const ShopBag = () => {
               </SessionContainer>
 
               <ButtonContainer>
-                <DefaultButton
-                  onPress={() => navigator.navigate('OrderDetails')}>
+                <DefaultButton onPress={registerOrder}>
                   <DefaultButtonText>Fazer pedido</DefaultButtonText>
                 </DefaultButton>
               </ButtonContainer>
