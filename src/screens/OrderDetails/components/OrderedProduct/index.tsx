@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { BodyText } from '../../../../styles/global';
+import { formatPrice } from '../../../../utils/price';
 import {
   ItemContainer,
   ItemDetails,
@@ -12,16 +13,20 @@ import {
 
 const camisetaImg = require('../../../../../assets/img/camiseta-1.png');
 
-const OrderedProduct = () => {
+interface IOrderProductProps {
+  product: IProduct;
+}
+
+const OrderedProduct = ({ product }: IOrderProductProps) => {
   return (
     <ItemContainer>
-      <ItemImage source={camisetaImg} />
+      <ItemImage source={{ uri: product.img_url }} />
       <View>
-        <BodyText>Camiseta preta - masculina</BodyText>
+        <BodyText>{product.name}</BodyText>
         <ItemDetails>
-          <ItemPrice>R$ 39,90</ItemPrice>
+          <ItemPrice>{formatPrice(Number(product.price))}</ItemPrice>
           <ItemSize>Tamanho</ItemSize>
-          <SizeLetter>P</SizeLetter>
+          <SizeLetter>{product.size}</SizeLetter>
         </ItemDetails>
       </View>
     </ItemContainer>

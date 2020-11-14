@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import {
   BodyText,
@@ -20,12 +20,31 @@ import {
 } from './styles';
 import OrderedProduct from './components/OrderedProduct';
 import colors from '../../styles/colors';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigatorParamList } from '../../routes/StackNavigator';
+import { formatPrice } from '../../utils/price';
 
 const avatarImg = require('../../../assets/img/avatar-entregador.png');
 
 const OrderDetails = () => {
+  const [date, setDate] = useState<string>();
+  const [price, setPrice] = useState<number>();
   const { navigate } = useNavigation();
+  const {
+    params: { freight, products },
+  } = useRoute<RouteProp<StackNavigatorParamList, 'OrderDetails'>>();
+
+  useEffect(() => {
+    const data = Date.now();
+    const hour = new Date(data);
+    setDate(`${hour.getHours().toString()}:${hour.getMinutes().toString()}`);
+  }, []);
+
+  useEffect(() => {
+    const prices = products.map((product) => product.price);
+    const total = prices.reduce((a, b) => a + b);
+    setPrice(total);
+  }, []);
 
   return (
     <Container>
@@ -38,7 +57,7 @@ const OrderDetails = () => {
           </InformationBlock>
           <InformationBlock>
             <BodyText>Realizado em:</BodyText>
-            <DetailText>13:00</DetailText>
+            <DetailText>{date}</DetailText>
           </InformationBlock>
           <InformationBlock>
             <AvatarContainer>
@@ -56,27 +75,28 @@ const OrderDetails = () => {
           <BodyText style={{ alignSelf: 'flex-start', marginBottom: 10 }}>
             Seu pedido
           </BodyText>
-          <OrderedProduct />
-          <OrderedProduct />
-          <OrderedProduct />
-          <OrderedProduct />
+          {products.map((product) => (
+            <OrderedProduct product={product} />
+          ))}
         </OrderContainer>
 
         <OrderContainer>
           <InformationBlock>
             <BodyText>Roupas</BodyText>
-            <DetailText>R$ 160,00</DetailText>
+            <DetailText>
+              {products.map(({ price }) => formatPrice(Number(price)))}
+            </DetailText>
           </InformationBlock>
           <InformationBlock>
             <BodyText>Taxa de Entrega</BodyText>
-            <DetailText>R$ 15,00</DetailText>
+            <DetailText>{formatPrice(Number(freight))}</DetailText>
           </InformationBlock>
           <InformationBlock>
             <DetailText style={{ color: colors.main_red, fontWeight: 'bold' }}>
               Total
             </DetailText>
             <DetailText style={{ color: colors.main_red, fontWeight: 'bold' }}>
-              R$ 175,00
+              {formatPrice(Number(freight) + Number(price))}
             </DetailText>
           </InformationBlock>
           <ObsText>
