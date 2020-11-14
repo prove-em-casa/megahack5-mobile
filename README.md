@@ -4,7 +4,7 @@
 &nbsp;
 
 ## Projeto :computer: 
-<p>Prove em casa é um aplicativo .</p>
+<p><strong>Prove em casa</strong> é um aplicativo no qual o usuário irá poder provar roupas sem sair de casa. O driver fará entrega e você só ficará com as roupas que quiser, podendo assim solicitar que um driver venha buscar as não selecionadas.</p>
 
  * Equipe envolvida: [Thaian](https://github.com/thcarvalho), [Mello](https://github.com/MelloTonio), [Itamar](https://github.com/ItamarJoire), [Mateus](http://linkedin.com/in/mateus-mezzomo-591466b1) e [Vítor](https://github.com/vitorbertolucci);
  
@@ -22,6 +22,11 @@
   
 * [Node.js](https://nodejs.org/en/)
 * [Express](https://expressjs.com/pt-br/)
+* [Sequelize](https://sequelize.org/)
+* [SQLite](https://www.sqlite.org/index.html)
+* [JWT](https://jwt.io/)
+
+
 
   
   

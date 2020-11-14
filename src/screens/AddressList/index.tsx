@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useCachedFetch } from 'react-cached-fetch';
 
-import { AddressesListContainer, AddAddressIcon } from './styles';
+import { AddAddressIcon } from './styles';
 import {
   DefaultButton,
   DefaultButtonText,
@@ -14,22 +16,24 @@ import {
 import AddressContainer from '../../components/AddressContainer';
 import { selectShopBagAddress } from '../../store/ducks/shopBag';
 import { RootState } from '../../store/store';
-import Icon from 'react-native-vector-icons/Ionicons';
-import api from '../../services/api';
 
 const AddressList = () => {
   const { address: selectedAddress } = useSelector(
     ({ shopBag }: RootState) => shopBag,
   );
-  const [addresses, setAddresses] = useState<IAddress[]>([]);
+  const { data: addresses, isLoading } = useCachedFetch('address');
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    api.get('/address').then((response) => {
-      setAddresses(response.data);
-    });
-  }, []);
+  if (!addresses) {
+    if (isLoading) {
+      // TODO: Display loading feedback
+      return null;
+    }
+
+    // TODO: Treat this error by redirecting user or showing feedback
+    return null;
+  }
 
   const onSelectAddress = (id: number) => {
     const address = addresses.find((address: IAddress) => address.id === id);

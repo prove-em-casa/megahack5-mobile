@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
+import { useCachedFetch } from 'react-cached-fetch';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-import { CreditCardsListContainer, AddCreditCardIcon } from './styles';
+import { AddCreditCardIcon } from './styles';
 import {
   Container,
   DefaultButton,
@@ -14,24 +16,25 @@ import {
 import CardContainer from '../../components/CreditCardContainer';
 import { RootState } from '../../store/store';
 import { selectShopBagCreditCard } from '../../store/ducks/shopBag';
-import Icon from 'react-native-vector-icons/Ionicons';
 import api from '../../services/api';
 
 const CreditCardList = () => {
   const { creditCard: selectedCreditCard } = useSelector(
     ({ shopBag }: RootState) => shopBag,
   );
-  const [creditCards, setCreditCards] = useState<ICreditCard[]>([]);
+  const { data: creditCards, isLoading } = useCachedFetch('creditCard');
   const navigator = useNavigation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    api.get('/creditCard').then((response) => {
-      console.log(response.data);
+  if (!creditCards) {
+    if (isLoading) {
+      // TODO: Display loading feedback
+      return null;
+    }
 
-      setCreditCards(response.data);
-    });
-  }, []);
+    // TODO: Treat this error by redirecting user or showing feedback
+    return null;
+  }
 
   const onSelectCreditCard = (id: number) => {
     const creditCard = creditCards.find((card: ICreditCard) => card.id === id);
