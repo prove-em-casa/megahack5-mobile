@@ -26,15 +26,25 @@ import {
 } from './styles';
 import ProductContainer from '../../components/ProductContainer';
 import { StackNavigatorParamList } from '../../routes/StackNavigator';
+import { formatPrice } from '../../utils/price';
+import NavigationHeader from '../../components/NavigationHeader';
 
 const avatarImage = require('../../../assets/img/driver_avatar.png');
+
+interface OrderStatus extends IOrder {
+  products: IProduct[];
+}
+interface CachedFetchReturn {
+  data: OrderStatus;
+  isLoading: boolean;
+}
 
 const OrderStatusCanceled = () => {
   const { params } = useRoute<
     RouteProp<StackNavigatorParamList, 'OrderStatusCanceled'>
   >();
 
-  const { data: order, isLoading } = useCachedFetch(
+  const { data: order, isLoading }: CachedFetchReturn = useCachedFetch(
     `/order/${params ? params.order_id : 0}`,
   );
 
@@ -44,16 +54,15 @@ const OrderStatusCanceled = () => {
     return null;
   }
 
-  if (!order && isLoading) {
-    // TODO: Display feedback
+  if (!order) {
+    if (isLoading) {
+      // TODO: Display loading feedback
+      return null;
+    }
+
+    // TODO: Treat this error by redirecting user or showing feedback
     return null;
   }
-
-  const renderFreight = () => {
-    const price = order ? order.freight : 0;
-
-    return `R$${price.toFixed(2).replace(/\./, ',')}`;
-  };
 
   const renderContent = () => (
     <OrderStatusBottomSheet>
@@ -96,13 +105,14 @@ const OrderStatusCanceled = () => {
 
   return (
     <OrderStatusContainer>
+      <NavigationHeader title={`PEDIDO Nº ${order.id}`} showGoBackButton />
       {showBackdrop && <OrderStatusBackdrop />}
       <OrderStatusCanceledTextContainer>
         <OrderStatusText>cancelado</OrderStatusText>
       </OrderStatusCanceledTextContainer>
 
       <FlatList
-        data={order ? order.products : []}
+        data={order.products}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item: product }: { item: IProduct }) => (
           <ProductContainer
@@ -119,12 +129,12 @@ const OrderStatusCanceled = () => {
             <SessionContainer>
               <InformationLine>
                 <InformationLabel>Taxa de entrega</InformationLabel>
-                <Price>{renderFreight()}</Price>
+                <Price>{formatPrice(order.freight)}</Price>
               </InformationLine>
 
               <InformationLine>
                 <TotalPriceLabel>Total</TotalPriceLabel>
-                <Price>{renderFreight()}</Price>
+                <Price>{formatPrice(order.freight)}</Price>
               </InformationLine>
             </SessionContainer>
           </>

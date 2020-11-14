@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RouteProp, useRoute } from '@react-navigation/native';
@@ -29,27 +29,56 @@ import {
 import ProductContainer from '../../components/ProductContainer';
 import { DefaultButtonText } from '../../styles/global';
 import { StackNavigatorParamList } from '../../routes/StackNavigator';
+import { formatPrice } from '../../utils/price';
+import NavigationHeader from '../../components/NavigationHeader';
 
 const avatarImage = require('../../../assets/img/driver_avatar.png');
+
+interface OrderStatus extends IOrder {
+  products: IProduct[];
+}
+interface CachedFetchReturn {
+  data: OrderStatus;
+  isLoading: boolean;
+}
 
 const OrderStatusWaiting = () => {
   const { params } = useRoute<
     RouteProp<StackNavigatorParamList, 'OrderStatusTrying'>
   >();
 
-  const { data: order, isLoading } = useCachedFetch(
+  const { data: order, isLoading }: CachedFetchReturn = useCachedFetch(
     `/order/${params ? params.order_id : 0}`,
   );
 
   const [showBackdrop, setShowBackdrop] = useState(false);
+  const [productsPrice, setProductsPrice] = useState(0);
   const navigator = useNavigation();
+
+  useEffect(() => {
+    if (!order || !order.products) {
+      return;
+    }
+
+    const price = order.products.reduce(
+      (accumulator: number, product: IProduct) => accumulator + product.price,
+      0,
+    );
+
+    setProductsPrice(price);
+  }, [order]);
 
   if (!params || !params.order_id) {
     return null;
   }
 
-  if (!order && isLoading) {
-    // TODO: Display feedback
+  if (!order) {
+    if (isLoading) {
+      // TODO: Display loading feedback
+      return null;
+    }
+
+    // TODO: Treat this error by redirecting user or showing feedback
     return null;
   }
 
@@ -96,13 +125,14 @@ const OrderStatusWaiting = () => {
 
   return (
     <OrderStatusContainer>
+      <NavigationHeader title="ACOMPANHE SEU PEDIDO" showGoBackButton />
       {showBackdrop && <OrderStatusBackdrop />}
       <OrderStatusOnTheWay>
         <OrderStatusText>a caminho</OrderStatusText>
       </OrderStatusOnTheWay>
 
       <FlatList
-        data={order ? order.products : []}
+        data={order.products}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item: product }: { item: IProduct }) => (
           <ProductContainer
@@ -119,17 +149,17 @@ const OrderStatusWaiting = () => {
             <SessionContainer>
               <InformationLine>
                 <InformationLabel>Roupas</InformationLabel>
-                <Price>R$80,00</Price>
+                <Price>{formatPrice(productsPrice)}</Price>
               </InformationLine>
 
               <InformationLine>
                 <InformationLabel>Taxa de entrega</InformationLabel>
-                <Price>R$15,00</Price>
+                <Price>{formatPrice(order.freight)} </Price>
               </InformationLine>
 
               <InformationLine>
                 <TotalPriceLabel>Total</TotalPriceLabel>
-                <Price>R$95,00</Price>
+                <Price>{formatPrice(productsPrice + order.freight)}</Price>
               </InformationLine>
             </SessionContainer>
 

@@ -3,7 +3,6 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 
 import ShopList from '../screens/ShopList';
 import MyAccount from '../screens/MyAccount';
-import ShopBag from '../screens/ShopBag';
 import OrderList from '../screens/OrderList';
 import colors from '../styles/colors';
 import IconI from 'react-native-vector-icons/Ionicons';
