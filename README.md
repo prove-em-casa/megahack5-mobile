@@ -19,12 +19,20 @@
   
   ## Tecnologias	:toolbox:
   
+* [React Native](https://pt-br.reactjs.org/)
+* [Redux](https://redux.js.org/)
+
+
+
+&nbsp;
+
 * [Node.js](https://nodejs.org/en/)
 * [Express](https://expressjs.com/pt-br/)
 * [Sequelize](https://sequelize.org/)
 * [SQLite](https://www.sqlite.org/index.html)
 * [JWT](https://jwt.io/)
 * [TypeScript](https://www.typescriptlang.org/)
+
 
 
 
