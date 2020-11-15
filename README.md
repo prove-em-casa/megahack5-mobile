@@ -9,7 +9,6 @@
  * Equipe envolvida: [Thaian](https://github.com/thcarvalho), [Mello](https://github.com/MelloTonio), [Itamar](https://github.com/ItamarJoire), [Mateus](http://linkedin.com/in/mateus-mezzomo-591466b1) e [Vítor](https://github.com/vitorbertolucci);
  
 
-
 &nbsp;
   
 ## Layout :bookmark:
@@ -25,6 +24,7 @@
 * [Sequelize](https://sequelize.org/)
 * [SQLite](https://www.sqlite.org/index.html)
 * [JWT](https://jwt.io/)
+* [TypeScript](https://www.typescriptlang.org/)
 
 
 
