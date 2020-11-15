@@ -12,9 +12,10 @@
 &nbsp;
   
 ## Layout :bookmark:
-  <img src="https://github.com/prove-em-casa/megahack5-mobile/blob/main/splash.png" align="center" width="146" height="298">
-  <img src="https://github.com/prove-em-casa/megahack5-mobile/blob/main/Tela%20de%20escolha.png" align="left" width="146" height="298">
-  <img src="https://github.com/prove-em-casa/megahack5-mobile/blob/main/detalhe.png" align="center" width="146" height="298">
+  <img src="https://github.com/prove-em-casa/megahack5-mobile/blob/main/splash.png" align="left" width="166" height="318">
+  <img src="https://github.com/prove-em-casa/megahack5-mobile/blob/main/Login.png" align="left" width="166" height="318">
+  <img src="https://github.com/prove-em-casa/megahack5-mobile/blob/main/Tela%20de%20escolha.png" align="left" width="166" height="318">
+  <img src="https://github.com/prove-em-casa/megahack5-mobile/blob/main/detalhe.png" align="center" width="166" height="318">
 
    
   
