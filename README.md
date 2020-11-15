@@ -1,5 +1,6 @@
+
+<img src="https://img.shields.io/static/v1?label=Status&message=Em_desenvolvimento&color=2980b9" align="center"/>
 <img src="https://img.shields.io/github/license/prove-em-casa/megahack5-mobile" align="center"/>
-<img src="https://img.shields.io/static/v1?label=Status&message=Em_desenvolvimento&color=CA1A26" align="center"/>
 
 <h1 align="center"> Prove em casa <img src="https://github.com/prove-em-casa/megahack5-mobile/blob/main/icon-2.png" align="center" ></h1>
 
@@ -35,6 +36,7 @@
 * [SQLite](https://www.sqlite.org/index.html)
 * [JWT](https://jwt.io/)
 * [TypeScript](https://www.typescriptlang.org/)
+
 
 
 
