@@ -1,5 +1,5 @@
+<img src="https://img.shields.io/static/v1?label=Status&message=Em_desenvolvimento&color=5F6EFA" align="right"/>
 
-<img src="https://img.shields.io/static/v1?label=Status&message=Em_desenvolvimento&color=5F6EFA&style=for-the-badge&logo=ghost" align="right"/>
 
 
 
