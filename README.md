@@ -1,5 +1,3 @@
-[Tecnologias](https://github.com/prove-em-casa/megahack5-mobile/blob/main/README.md#tecnologiastoolbox)
-
 <img src="https://img.shields.io/static/v1?label=Status&message=Em_desenvolvimento&color=5F6EFA" align="right"/>
 
 
@@ -10,13 +8,25 @@
 <h1 align="center"> Prove em casa <img src="https://github.com/prove-em-casa/megahack5-mobile/blob/main/icon-2.png" align="center" ></h1>
 
 
+
+
 &nbsp;
+
+<h4 align="center"><a href="https://github.com/prove-em-casa/megahack5-mobile#projeto-computer">Projeto </a> | <a href="https://github.com/prove-em-casa/megahack5-mobile/blob/main/README.md#layout-bookmark"> Layout</a> | <a href="https://github.com/prove-em-casa/megahack5-mobile/blob/main/README.md#tecnologiastoolbox"> Tecnologias </a></h4> 
+
+
+
+
+&nbsp;
+
 
 ## Projeto :computer: 
 <p><strong>Prove em casa</strong> é um aplicativo no qual o usuário poderá provar roupas sem sair de casa e o driver fará entrega e você só ficará com as roupas que quiser, podendo assim solicitar que um driver venha buscar as não selecionadas.</p>
 
  * Equipe: [Thaian](https://github.com/thcarvalho), [Mello](https://github.com/MelloTonio), [Itamar](https://github.com/ItamarJoire), [Mateus](http://linkedin.com/in/mateus-mezzomo-591466b1) e [Vítor](https://github.com/vitorbertolucci);
  
+
+
 
 &nbsp;
   
