@@ -1,4 +1,4 @@
-<img src="https://img.shields.io/static/v1?label=Status&message=Em_desenvolvimento&color=2980b9" align="right"/>
+<img src="https://img.shields.io/static/v1?label=Status&message=Em_desenvolvimento&color=1A2CCA" align="right"/>
 
 
 
